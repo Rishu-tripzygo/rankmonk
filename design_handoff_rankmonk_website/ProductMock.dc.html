@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+</helmet>
+<div ref="{{ root }}" style="position:relative; width:100%; font-family:'Geist', system-ui, sans-serif; color:#14151A; font-size:14px; line-height:1.4">
+  <sc-if value="{{ showFloats }}" hint-placeholder-val="{{ false }}">
+    <div data-a="float" data-d="0" style="position:absolute; left:-40px; top:150px; z-index:3; width:250px; background:#fff; border:1px solid #E6E7EB; border-radius:14px; padding:14px 16px; box-shadow:0 24px 48px -18px rgba(16,24,40,.28)">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px"><span style="color:#F5A524; letter-spacing:1px; font-size:13px">★★★★★</span><span style="color:#6B6F7B; font-size:12px">New review · 2m ago</span></div>
+      <div style="font-size:13px; line-height:1.45">"Very clean clinic, and the staff made my son feel at ease."</div>
+      <div style="margin-top:10px; display:flex; align-items:center; gap:6px; color:#C2410C; font-weight:600; font-size:12px"><span style="width:18px; height:18px; border-radius:6px; background:#FFF1EA; display:inline-flex; align-items:center; justify-content:center">✦</span>AI reply drafted</div>
+    </div>
+    <div data-a="float" data-d="600" style="position:absolute; right:-36px; top:70px; z-index:3; width:210px; background:#fff; border:1px solid #E6E7EB; border-radius:14px; padding:14px 16px; box-shadow:0 24px 48px -18px rgba(16,24,40,.28)">
+      <div style="font-size:12px; color:#6B6F7B">Suspension risk</div>
+      <div style="display:flex; align-items:baseline; gap:8px; margin:4px 0 10px"><span style="font-size:20px; font-weight:600; letter-spacing:-.02em">Low</span><span style="font-size:12px; color:#067647">No risky edits</span></div>
+      <div style="display:flex; gap:4px"><div style="flex:1; height:6px; border-radius:3px; background:#12B76A"></div><div style="flex:1; height:6px; border-radius:3px; background:#EEF0F3"></div><div style="flex:1; height:6px; border-radius:3px; background:#EEF0F3"></div></div>
+    </div>
+    <div data-a="float" data-d="1200" style="position:absolute; right:-28px; bottom:56px; z-index:3; width:260px; background:#fff; border:1px solid #E6E7EB; border-radius:14px; padding:14px 16px; box-shadow:0 24px 48px -18px rgba(16,24,40,.28)">
+      <div style="display:flex; align-items:center; gap:8px; font-size:12px; color:#6B6F7B"><span style="width:20px; height:20px; border-radius:6px; background:#14151A; color:#fff; display:inline-flex; align-items:center; justify-content:center; font-size:11px">AI</span>ChatGPT answer</div>
+      <div style="font-size:13px; margin:8px 0 10px; line-height:1.45">"best dentist in Indiranagar"</div>
+      <div style="display:flex; align-items:center; justify-content:space-between"><span style="font-size:12px; font-weight:600; color:#067647; background:#ECFDF3; padding:3px 8px; border-radius:999px">Mentioned</span><span style="font-family:'Geist Mono', monospace; font-size:12px; color:#3A3D47">Position #2</span></div>
+    </div>
+  </sc-if>
+  <div style="position:relative; z-index:2; background:#fff; border:1px solid #E6E7EB; border-radius:16px; box-shadow:0 1px 2px rgba(16,24,40,.04), 0 32px 64px -24px rgba(16,24,40,.22); overflow:hidden">
+    <div style="display:flex; align-items:center; gap:12px; padding:10px 14px; border-bottom:1px solid #EEF0F3; background:#FAFAFB">
+      <div style="display:flex; gap:6px"><span style="width:10px; height:10px; border-radius:50%; background:#E4E5EA"></span><span style="width:10px; height:10px; border-radius:50%; background:#E4E5EA"></span><span style="width:10px; height:10px; border-radius:50%; background:#E4E5EA"></span></div>
+      <div style="flex:1; min-width:0; max-width:340px; margin:0 auto; background:#fff; border:1px solid #EEF0F3; border-radius:8px; padding:4px 10px; font-size:12px; color:#6B6F7B; font-family:'Geist Mono', monospace; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">dashboard.rankmonk.io/{{ path }}</div>
+      <span style="font-size:11px; color:#6B6F7B; border:1px dashed #D0D3DA; border-radius:999px; padding:2px 8px; white-space:nowrap">Sample data</span>
+    </div>
+    <div style="display:flex; min-height:0">
+      <sc-if value="{{ showSide }}" hint-placeholder-val="{{ false }}">
+        <div style="width:184px; flex:none; border-right:1px solid #EEF0F3; padding:16px 12px; background:#FCFCFD; display:flex; flex-direction:column; gap:2px">
+          <div style="display:flex; align-items:center; gap:8px; padding:4px 8px 14px">
+            <div style="width:22px; height:22px; border-radius:7px; background:#FF5A1F; display:grid; grid-template-columns:repeat(3,1fr); gap:2px; padding:4px; box-sizing:border-box"><i style="background:#fff; border-radius:50%; opacity:.6"></i><i style="background:#fff; border-radius:50%; opacity:.6"></i><i style="background:#fff; border-radius:50%; opacity:.6"></i><i style="background:#fff; border-radius:50%; opacity:.6"></i><i style="background:#fff; border-radius:50%"></i><i style="background:#fff; border-radius:50%; opacity:.6"></i><i style="background:#fff; border-radius:50%; opacity:.6"></i><i style="background:#fff; border-radius:50%; opacity:.6"></i><i style="background:#fff; border-radius:50%; opacity:.6"></i></div>
+            <span style="font-weight:600; font-size:13px">RankMonk</span>
+          </div>
+          <sc-for list="{{ side }}" as="n" hint-placeholder-count="7">
+            <div style="display:flex; align-items:center; gap:8px; padding:7px 8px; border-radius:8px; font-size:13px; white-space:nowrap; color:{{ n.fg }}; background:{{ n.bg }}; font-weight:{{ n.fw }}"><span style="width:6px; height:6px; border-radius:50%; background:{{ n.dot }}"></span>{{ n.label }}</div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <div style="flex:1; min-width:0; padding:20px">
+
+        <sc-if value="{{ isGrid }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; margin-bottom:16px">
+            <div><div style="font-weight:600; font-size:15px">Kinara Dental · Indiranagar</div><div style="font-size:12px; color:#6B6F7B">7×7 grid · 2 km radius · Scanned 21 Sep</div></div>
+            <div style="display:flex; flex-wrap:wrap; gap:6px">
+              <sc-for list="{{ kws }}" as="k" hint-placeholder-count="3">
+                <button onClick="{{ k.pick }}" style="white-space:nowrap; border:1px solid {{ k.bd }}; background:{{ k.bg }}; color:{{ k.fg }}; border-radius:999px; padding:5px 11px; font:inherit; font-size:12px; cursor:pointer">{{ k.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap:20px; align-items:start">
+            <div style="position:relative; aspect-ratio:1; border-radius:12px; overflow:hidden; background-color:#EEF1F4; background-image:linear-gradient(90deg, transparent 47%, #fff 47%, #fff 53%, transparent 53%), linear-gradient(0deg, transparent 30%, #fff 30%, #fff 34%, transparent 34%), linear-gradient(0deg, transparent 71%, #fff 71%, #fff 73%, transparent 73%), linear-gradient(90deg, transparent 18%, #fff 18%, #fff 20%, transparent 20%), linear-gradient(90deg, transparent 80%, #fff 80%, #fff 82%, transparent 82%), linear-gradient(0deg, #E3E8EC 1px, transparent 1px), linear-gradient(90deg, #E3E8EC 1px, transparent 1px); background-size:100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 28px 28px, 28px 28px">
+              <div style="position:absolute; left:58%; top:8%; width:26%; height:20%; background:#DDEFE3; border-radius:10px"></div>
+              <div style="position:absolute; left:6%; top:76%; width:30%; height:16%; background:#DCEBF7; border-radius:40% 60% 50% 50%"></div>
+              <div style="position:absolute; inset:5%; display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); grid-template-rows:repeat(7, minmax(0,1fr))">
+                <sc-for list="{{ cells }}" as="c" hint-placeholder-count="49">
+                  <div style="position:relative; display:flex; align-items:center; justify-content:center">
+                    <sc-if value="{{ c.center }}" hint-placeholder-val="{{ false }}"><span data-a="pulse" style="position:absolute; width:62%; aspect-ratio:1; border-radius:50%; background:rgba(255,90,31,.45)"></span></sc-if>
+                    <div data-a="pop" data-d="{{ c.d }}" style="position:relative; width:72%; aspect-ratio:1; border-radius:50%; background:{{ c.bg }}; color:#fff; font-size:11px; font-weight:600; display:flex; align-items:center; justify-content:center; border:2px solid #fff; box-shadow:0 2px 6px rgba(16,24,40,.2); font-variant-numeric:tabular-nums">{{ c.label }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:12px">
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
+                <div style="border:1px solid #EEF0F3; border-radius:12px; padding:14px"><div style="font-size:12px; color:#6B6F7B">Average rank</div><div style="font-size:28px; font-weight:600; letter-spacing:-.03em; font-variant-numeric:tabular-nums">{{ g.avg }}</div><div style="font-size:12px; color:#067647">▲ 5.2 in 8 weeks</div></div>
+                <div style="border:1px solid #EEF0F3; border-radius:12px; padding:14px"><div style="font-size:12px; color:#6B6F7B">Top-3 coverage</div><div style="font-size:28px; font-weight:600; letter-spacing:-.03em; font-variant-numeric:tabular-nums">{{ g.top3 }}%</div><div style="font-size:12px; color:#6B6F7B">{{ g.top3n }} of 49 points</div></div>
+              </div>
+              <div style="border:1px solid #EEF0F3; border-radius:12px; padding:14px">
+                <div style="display:flex; justify-content:space-between; font-size:12px; color:#6B6F7B; margin-bottom:8px"><span>Average rank, last 8 weeks</span><span>Lower is better</span></div>
+                <svg viewBox="0 0 260 80" style="width:100%; height:80px; display:block" fill="none"><path d="{{ spark.area }}" fill="rgba(255,90,31,.08)"></path><path data-a="draw" d="{{ spark.line }}" stroke="#FF5A1F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              </div>
+              <div style="display:flex; flex-wrap:wrap; gap:10px 14px; font-size:12px; color:#3A3D47">
+                <span style="display:flex; align-items:center; gap:6px"><i style="width:10px; height:10px; border-radius:50%; background:#12B76A"></i>1–3</span>
+                <span style="display:flex; align-items:center; gap:6px"><i style="width:10px; height:10px; border-radius:50%; background:#F79009"></i>4–10</span>
+                <span style="display:flex; align-items:center; gap:6px"><i style="width:10px; height:10px; border-radius:50%; background:#F04438"></i>11–20</span>
+                <span style="display:flex; align-items:center; gap:6px"><i style="width:10px; height:10px; border-radius:50%; background:#98A2B3"></i>Not in top 20</span>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isComp }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px; margin-bottom:14px"><div><div style="font-weight:600; font-size:15px">Competitors</div><div style="font-size:12px; color:#6B6F7B">Keyword "dentist near me" · Indiranagar</div></div><span style="font-size:12px; color:#C2410C; background:#FFF1EA; padding:4px 10px; border-radius:999px; align-self:center">SmileCraft overtook you on 3 points</span></div>
+          <div style="display:flex; flex-direction:column; gap:8px">
+            <div style="display:grid; grid-template-columns:minmax(0,2fr) 70px minmax(0,2fr) 90px; gap:12px; font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:#6B6F7B; padding:0 12px"><span>Business</span><span>Avg. rank</span><span>Top-3 coverage</span><span>Rating</span></div>
+            <sc-for list="{{ comps }}" as="c" hint-placeholder-count="5">
+              <div data-a="rise" data-d="{{ c.d }}" style="display:grid; grid-template-columns:minmax(0,2fr) 70px minmax(0,2fr) 90px; gap:12px; align-items:center; padding:12px; border-radius:10px; border:1px solid {{ c.bd }}; background:{{ c.bg }}">
+                <span style="font-weight:{{ c.fw }}; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">{{ c.n }}</span>
+                <span style="font-family:'Geist Mono', monospace">{{ c.rank }}</span>
+                <span style="display:flex; align-items:center; gap:8px"><span style="flex:1; height:8px; border-radius:4px; background:#F2F3F5; overflow:hidden"><span data-a="bar" data-d="{{ c.d }}" style="display:block; height:100%; width:{{ c.top3 }}%; background:{{ c.bar }}; border-radius:4px"></span></span><span style="font-family:'Geist Mono', monospace; font-size:12px; width:34px">{{ c.top3 }}%</span></span>
+                <span style="font-size:13px"><span style="color:#F5A524">★</span> {{ c.rating }} <span style="color:#6B6F7B">({{ c.reviews }})</span></span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isAudit }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap:20px; align-items:center">
+            <div style="display:flex; flex-direction:column; align-items:center; gap:10px; padding:10px">
+              <div style="position:relative; width:170px; height:170px">
+                <svg viewBox="0 0 120 120" style="width:100%; height:100%; transform:rotate(-90deg)"><circle cx="60" cy="60" r="52" stroke="#F2F3F5" stroke-width="10" fill="none"></circle><circle data-a="ring" data-len="326.7" data-off="71.9" cx="60" cy="60" r="52" stroke="#FF5A1F" stroke-width="10" fill="none" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="71.9"></circle></svg>
+                <div style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center"><span style="font-size:44px; font-weight:600; letter-spacing:-.04em; line-height:1">78</span><span style="font-size:12px; color:#6B6F7B">of 100</span></div>
+              </div>
+              <div style="font-weight:600">Profile score</div>
+              <div style="font-size:12px; color:#6B6F7B; text-align:center">Kinara Dental · 6 checks need attention</div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:8px">
+              <sc-for list="{{ audit }}" as="a" hint-placeholder-count="6">
+                <div data-a="rise" data-d="{{ a.d }}" style="display:flex; align-items:center; gap:10px; padding:10px 12px; border:1px solid #EEF0F3; border-radius:10px">
+                  <span style="width:22px; height:22px; flex:none; border-radius:50%; background:{{ a.bg }}; color:{{ a.fg }}; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700">{{ a.ic }}</span>
+                  <span style="flex:1; min-width:0; font-size:13px">{{ a.t }}</span>
+                  <span style="font-size:11px; color:{{ a.fg }}; white-space:nowrap">{{ a.tag }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isProtect }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap:20px">
+            <div style="border:1px solid #EEF0F3; border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:12px">
+              <div style="font-size:12px; color:#6B6F7B">Suspension risk</div>
+              <div style="font-size:32px; font-weight:600; letter-spacing:-.03em">Low</div>
+              <div style="display:flex; gap:4px"><div data-a="bar" style="flex:1; height:8px; border-radius:4px; background:#12B76A"></div><div style="flex:1; height:8px; border-radius:4px; background:#F2F3F5"></div><div style="flex:1; height:8px; border-radius:4px; background:#F2F3F5"></div></div>
+              <div style="font-size:12px; color:#3A3D47; line-height:1.5">Name, address and category match your records. 1 suggested edit is waiting for review.</div>
+              <div style="border-top:1px solid #EEF0F3; padding-top:12px; display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:12px"><div><div style="color:#6B6F7B">Fields watched</div><div style="font-weight:600; font-size:16px">9</div></div><div><div style="color:#6B6F7B">Edits this month</div><div style="font-weight:600; font-size:16px">4</div></div></div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:8px">
+              <div style="font-size:12px; color:#6B6F7B; margin-bottom:2px">Change log</div>
+              <sc-for list="{{ alerts }}" as="a" hint-placeholder-count="4">
+                <div data-a="rise" data-d="{{ a.d }}" style="display:flex; align-items:center; gap:10px; padding:10px 12px; border:1px solid #EEF0F3; border-radius:10px">
+                  <div style="flex:1; min-width:0"><div style="font-size:13px; font-weight:500">{{ a.t }}</div><div style="font-size:12px; color:#6B6F7B">{{ a.s }}</div></div>
+                  <span style="font-size:11px; font-weight:600; padding:3px 8px; border-radius:999px; background:{{ a.bg }}; color:{{ a.fg }}; white-space:nowrap">{{ a.st }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isReviews }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap:20px">
+            <div style="display:flex; flex-direction:column; gap:12px">
+              <div style="border:1px solid #EEF0F3; border-radius:12px; padding:14px">
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px"><span style="width:30px; height:30px; border-radius:50%; background:#FFE3D6; color:#C2410C; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:13px">PS</span><div><div style="font-weight:600; font-size:13px">Priya S.</div><div style="font-size:12px; color:#6B6F7B"><span style="color:#F5A524">★★★★</span><span style="color:#D0D3DA">★</span> · Google · 1h ago</div></div></div>
+                <div style="font-size:13px; line-height:1.5; color:#3A3D47">Dr. Rao was patient and explained every step of the treatment. The waiting time was long though, almost 40 minutes past my slot.</div>
+              </div>
+              <div style="border:1px solid #FFD9C7; background:#FFFBF9; border-radius:12px; padding:14px">
+                <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; margin-bottom:10px"><span style="font-size:12px; font-weight:600; color:#C2410C">✦ AI reply draft</span><div style="display:flex; gap:4px"><sc-for list="{{ tones }}" as="t" hint-placeholder-count="3"><button onClick="{{ t.pick }}" style="white-space:nowrap; border:1px solid {{ t.bd }}; background:{{ t.bg }}; color:{{ t.fg }}; border-radius:999px; padding:3px 9px; font:inherit; font-size:11px; cursor:pointer">{{ t.label }}</button></sc-for></div></div>
+                <div style="font-size:13px; line-height:1.55; min-height:80px">{{ typed }}<span data-a="blink" style="display:inline-block; width:2px; height:14px; background:#FF5A1F; vertical-align:-2px; margin-left:1px"></span></div>
+                <div style="display:flex; gap:8px; margin-top:12px"><span style="font-size:12px; font-weight:600; color:#fff; background:#14151A; padding:6px 12px; border-radius:8px">Post reply</span><span style="font-size:12px; color:#3A3D47; border:1px solid #E4E5EA; padding:6px 12px; border-radius:8px">Edit</span></div>
+              </div>
+            </div>
+            <div style="border:1px solid #EEF0F3; border-radius:12px; padding:16px">
+              <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px"><div style="font-weight:600">Sentiment by topic</div><div style="font-size:12px; color:#6B6F7B">412 reviews</div></div>
+              <div style="display:flex; flex-direction:column; gap:14px">
+                <sc-for list="{{ senti }}" as="s" hint-placeholder-count="5">
+                  <div><div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:6px"><span>{{ s.t }}</span><span style="font-family:'Geist Mono', monospace; font-size:12px; color:#3A3D47">{{ s.p }}% positive</span></div><div style="height:8px; border-radius:4px; background:#FDE2E0; overflow:hidden"><div data-a="bar" data-d="{{ s.d }}" style="height:100%; width:{{ s.p }}%; background:#12B76A; border-radius:4px"></div></div></div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isListings }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px; margin-bottom:14px">
+            <div><div style="font-weight:600; font-size:15px">Listings · Kinara Dental</div><div style="font-size:12px; color:#6B6F7B">Name, address, phone, hours and categories</div></div>
+            <div style="display:flex; align-items:baseline; gap:6px"><span style="font-size:28px; font-weight:600; letter-spacing:-.03em">96%</span><span style="font-size:12px; color:#6B6F7B">consistency</span></div>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap:8px">
+            <sc-for list="{{ listings }}" as="l" hint-placeholder-count="8">
+              <div data-a="rise" data-d="{{ l.d }}" style="display:flex; align-items:center; gap:10px; padding:11px 12px; border:1px solid #EEF0F3; border-radius:10px">
+                <span style="width:28px; height:28px; flex:none; border-radius:8px; background:#F4F5F7; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:12px; color:#3A3D47">{{ l.i }}</span>
+                <span style="flex:1; min-width:0; font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">{{ l.n }}</span>
+                <span style="font-size:11px; font-weight:600; padding:3px 8px; border-radius:999px; background:{{ l.bg }}; color:{{ l.fg }}; white-space:nowrap">{{ l.st }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isMulti }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:10px; margin-bottom:12px">
+            <div><div style="font-weight:600; font-size:15px">Locations</div><div style="font-size:12px; color:#6B6F7B">Kinara Dental · 6 of 42 shown</div></div>
+            <div style="display:flex; align-items:center; gap:8px; background:#14151A; color:#fff; border-radius:10px; padding:6px 6px 6px 12px; font-size:12px"><span>{{ selCount }} selected</span><span style="background:#FF5A1F; border-radius:7px; padding:5px 10px; font-weight:600">Update holiday hours</span></div>
+          </div>
+          <div style="border:1px solid #EEF0F3; border-radius:12px; overflow:hidden">
+            <div style="display:grid; grid-template-columns:28px minmax(0,2fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr); gap:10px; padding:10px 12px; background:#FAFAFB; font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:#6B6F7B"><span></span><span>Location</span><span>Score</span><span>Avg. rank</span><span>Rating</span></div>
+            <sc-for list="{{ locs }}" as="l" hint-placeholder-count="6">
+              <div data-a="rise" data-d="{{ l.d }}" onClick="{{ l.toggle }}" style="display:grid; grid-template-columns:28px minmax(0,2fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr); gap:10px; align-items:center; padding:10px 12px; border-top:1px solid #EEF0F3; cursor:pointer; background:{{ l.rowBg }}">
+                <span style="width:16px; height:16px; border-radius:4px; border:1.5px solid {{ l.cbBd }}; background:{{ l.cbBg }}; color:#fff; font-size:11px; display:flex; align-items:center; justify-content:center">{{ l.tick }}</span>
+                <span style="font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">{{ l.n }}</span>
+                <span style="display:flex; align-items:center; gap:6px; font-size:12px"><span style="width:36px; height:6px; border-radius:3px; background:#F2F3F5; overflow:hidden"><span style="display:block; height:100%; width:{{ l.score }}%; background:{{ l.sc }}"></span></span>{{ l.score }}</span>
+                <span style="font-family:'Geist Mono', monospace; font-size:12px">{{ l.rank }}</span>
+                <span style="font-size:12px"><span style="color:#F5A524">★</span> {{ l.rating }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isAi }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap:20px">
+            <div style="display:flex; flex-direction:column; gap:10px">
+              <div style="display:flex; align-items:center; gap:10px; border:1px solid #E4E5EA; border-radius:12px; padding:12px 14px; font-size:14px"><span style="color:#FF5A1F">✦</span><span>best dentist in Indiranagar for kids</span><span data-a="blink" style="width:2px; height:16px; background:#14151A"></span></div>
+              <sc-for list="{{ ai }}" as="a" hint-placeholder-count="3">
+                <div data-a="rise" data-d="{{ a.d }}" style="border:1px solid #EEF0F3; border-radius:12px; padding:12px 14px">
+                  <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:6px"><span style="font-weight:600; font-size:13px">{{ a.n }}</span><span style="font-size:11px; font-weight:600; padding:3px 8px; border-radius:999px; background:{{ a.bg }}; color:{{ a.fg }}">{{ a.st }}</span></div>
+                  <div style="font-size:12px; color:#3A3D47; line-height:1.5">{{ a.q }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="border:1px solid #EEF0F3; border-radius:12px; padding:16px">
+              <div style="font-weight:600; margin-bottom:4px">Share of AI voice</div>
+              <div style="font-size:12px; color:#6B6F7B; margin-bottom:16px">25 tracked prompts · last 30 days</div>
+              <div style="display:flex; flex-direction:column; gap:14px">
+                <sc-for list="{{ sov }}" as="s" hint-placeholder-count="4">
+                  <div><div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:6px"><span style="font-weight:{{ s.fw }}">{{ s.n }}</span><span style="font-family:'Geist Mono', monospace; font-size:12px">{{ s.p }}%</span></div><div style="height:8px; border-radius:4px; background:#F2F3F5; overflow:hidden"><div data-a="bar" data-d="{{ s.d }}" style="height:100%; width:{{ s.w }}%; background:{{ s.c }}; border-radius:4px"></div></div></div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isReports }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:10px; margin-bottom:14px"><div><div style="font-weight:600; font-size:15px">Performance · All locations</div><div style="font-size:12px; color:#6B6F7B">Last 90 days vs previous period</div></div><span style="font-size:12px; border:1px solid #E4E5EA; border-radius:8px; padding:5px 10px">Monthly PDF · scheduled 1 Oct</span></div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(120px, 1fr)); gap:10px; margin-bottom:14px">
+            <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="4">
+              <div data-a="rise" data-d="{{ k.d }}" style="border:1px solid #EEF0F3; border-radius:12px; padding:12px"><div style="font-size:12px; color:#6B6F7B">{{ k.t }}</div><div style="font-size:24px; font-weight:600; letter-spacing:-.03em; font-variant-numeric:tabular-nums">{{ k.v }}</div><div style="font-size:12px; color:#067647">▲ {{ k.c }}</div></div>
+            </sc-for>
+          </div>
+          <div style="border:1px solid #EEF0F3; border-radius:12px; padding:14px">
+            <div style="display:flex; gap:16px; font-size:12px; color:#6B6F7B; margin-bottom:8px"><span style="display:flex; align-items:center; gap:6px"><i style="width:14px; height:3px; border-radius:2px; background:#FF5A1F"></i>Calls from profile</span><span style="display:flex; align-items:center; gap:6px"><i style="width:14px; height:0; border-top:2px dashed #98A2B3"></i>Previous period</span></div>
+            <svg viewBox="0 0 600 170" preserveAspectRatio="none" style="width:100%; height:170px; display:block" fill="none">
+              <path d="M0 42.5H600M0 85H600M0 127.5H600" stroke="#F2F3F5"></path>
+              <path d="{{ chart.prev }}" stroke="#98A2B3" stroke-width="2" stroke-dasharray="5 5"></path>
+              <path d="{{ chart.area }}" fill="rgba(255,90,31,.08)"></path>
+              <path data-a="draw" d="{{ chart.line }}" stroke="#FF5A1F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </div>
+        </sc-if>
+
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1000, &quot;height&quot;: 620}, &quot;kind&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;hero&quot;, &quot;grid&quot;, &quot;comp&quot;, &quot;audit&quot;, &quot;protect&quot;, &quot;reviews&quot;, &quot;listings&quot;, &quot;multi&quot;, &quot;ai&quot;, &quot;reports&quot;], &quot;default&quot;: &quot;hero&quot;, &quot;tsType&quot;: &quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { kw: 0, tone: 0, chars: 0, sel: [true, false, true, false, true, false], w: 900 };
+  root = React.createRef();
+  REPLIES = [
+    "Thank you so much, Priya! We're glad Dr. Rao took the time to explain everything. You're right about the wait, and we're sorry. We've added evening slots to keep queues shorter. See you at your next visit!",
+    "Thank you for your feedback, Priya. We are pleased Dr. Rao's explanation was helpful. We apologise for the delay and have extended our appointment hours to reduce waiting times.",
+    "Thanks, Priya! Glad Dr. Rao helped. Sorry about the wait. We're adding more slots to fix it."
+  ];
+  componentDidMount() {
+    if (this.root.current && window.ResizeObserver) {
+      this.ro = new ResizeObserver(es => { const w = es[0].contentRect.width; cancelAnimationFrame(this.raf); this.raf = requestAnimationFrame(() => { if (Math.abs(w - this.state.w) > 16) this.setState({ w }); }); });
+      this.ro.observe(this.root.current);
+    }
+    this._kind = this.props.kind || 'hero'; this._tone = this.state.tone; this._kw = this.state.kw;
+    this.anim(); this.startType();
+  }
+  componentWillUnmount() { this.ro && this.ro.disconnect(); clearInterval(this.t); (this.loops || []).forEach(a => a.cancel()); }
+  componentDidUpdate() {
+    const k = this.props.kind || 'hero', { tone, kw } = this.state;
+    if (this._kind !== k || this._tone !== tone) { this._kind = k; this._tone = tone; this.startType(); }
+    if (this._kw !== kw) { this._kw = kw; this.reset('pop'); }
+    this.anim();
+  }
+  reset(t) { const r = this.root.current; if (r) r.querySelectorAll('[data-a="' + t + '"]').forEach(el => { el.__a = 0; }); }
+  anim() {
+    const r = this.root.current; if (!r || !r.animate && !Element.prototype.animate) return;
+    const E = 'cubic-bezier(.2,.8,.2,1)'; this.loops = this.loops || [];
+    r.querySelectorAll('[data-a]').forEach(el => {
+      if (el.__a) return; el.__a = 1;
+      const t = el.getAttribute('data-a'), d = +(el.getAttribute('data-d') || 0);
+      if (t === 'pop') el.animate([{ transform: 'scale(0)', opacity: 0 }, { transform: 'scale(1.15)', opacity: 1, offset: .7 }, { transform: 'scale(1)', opacity: 1 }], { duration: 520, delay: d, easing: E, fill: 'both' });
+      else if (t === 'rise') el.animate([{ transform: 'translateY(12px)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 600, delay: d, easing: E, fill: 'both' });
+      else if (t === 'bar') { el.style.transformOrigin = 'left center'; el.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: 1000, delay: 200 + d, easing: E, fill: 'both' }); }
+      else if (t === 'draw') { const L = el.getTotalLength ? el.getTotalLength() : 800; el.style.strokeDasharray = L; el.animate([{ strokeDashoffset: L }, { strokeDashoffset: 0 }], { duration: 1600, delay: 300 + d, easing: E, fill: 'both' }); }
+      else if (t === 'ring') { const L = +el.getAttribute('data-len'), o = +el.getAttribute('data-off'); el.animate([{ strokeDashoffset: L }, { strokeDashoffset: o }], { duration: 1600, delay: 200, easing: E, fill: 'both' }); }
+      else if (t === 'float') { el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 700, delay: 900 + d, fill: 'both' }); this.loops.push(el.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(-10px)' }], { duration: 3200 + d, direction: 'alternate', iterations: Infinity, easing: 'ease-in-out' })); }
+      else if (t === 'pulse') this.loops.push(el.animate([{ transform: 'scale(1)', opacity: .7 }, { transform: 'scale(2.8)', opacity: 0 }], { duration: 1900, iterations: Infinity, easing: 'ease-out' }));
+      else if (t === 'blink') this.loops.push(el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, iterations: Infinity, easing: 'steps(2, jump-none)' }));
+    });
+  }
+  startType() {
+    clearInterval(this.t);
+    if ((this.props.kind || 'hero') !== 'reviews') return;
+    this.setState({ chars: 0 });
+    this.t = setInterval(() => {
+      const full = this.REPLIES[this.state.tone];
+      if (this.state.chars >= full.length) { clearInterval(this.t); return; }
+      this.setState(s => ({ chars: Math.min(full.length, s.chars + 2) }));
+    }, 26);
+  }
+  rc(r) { return r <= 3 ? '#12B76A' : r <= 10 ? '#F79009' : r <= 20 ? '#F04438' : '#98A2B3'; }
+  grid(k) {
+    const base = [0.95, 1.7, 2.7][k], cells = []; let sum = 0, n = 0, t3 = 0;
+    for (let j = 0; j < 7; j++) for (let i = 0; i < 7; i++) {
+      const dx = i - 3, dy = j - 3, dist = Math.sqrt(dx * dx + dy * dy);
+      const noise = ((i * 7 + j * 13 + k * 5) % 5) - 2;
+      let r = Math.round(1 + dist * base + noise * 0.7 + (dy > 0 ? dist * 0.5 * k : 0) - (dx < 0 ? 0.6 : 0));
+      if (r < 1) r = 1;
+      if (r <= 20) { sum += r; n++; } if (r <= 3) t3++;
+      cells.push({ label: r > 20 ? '20+' : String(r), bg: this.rc(r), d: Math.round(dist * 70 + (i + j) * 6), center: i === 3 && j === 3 });
+    }
+    return { cells, avg: (sum / n).toFixed(1), top3: Math.round(t3 / 49 * 100), top3n: t3 };
+  }
+  path(vals, W, H, pad, lo, hi) {
+    const step = W / (vals.length - 1);
+    const pts = vals.map((v, i) => [i * step, pad + (H - 2 * pad) * (1 - (v - lo) / (hi - lo))]);
+    const line = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+    return { line, area: line + ' L' + W + ' ' + H + ' L0 ' + H + ' Z' };
+  }
+  renderVals() {
+    const kind = this.props.kind || 'hero';
+    const { kw, tone, chars, sel, w } = this.state;
+    const isGrid = kind === 'hero' || kind === 'grid';
+    const paths = { hero: 'geo-grid', grid: 'geo-grid', comp: 'competitors', audit: 'audit', protect: 'protection', reviews: 'reviews', listings: 'listings', multi: 'locations', ai: 'ai-visibility', reports: 'reports' };
+    const activeNav = { hero: 1, grid: 1, comp: 2, audit: 0, protect: 0, reviews: 3, listings: 4, multi: 0, ai: 5, reports: 6 }[kind];
+    const side = ['Overview', 'Geo-grid', 'Competitors', 'Reviews', 'Listings', 'AI visibility', 'Reports'].map((label, i) => ({ label, fg: i === activeNav ? '#14151A' : '#6B6F7B', bg: i === activeNav ? '#F2F3F5' : 'transparent', fw: i === activeNav ? 600 : 400, dot: i === activeNav ? '#FF5A1F' : '#D0D3DA' }));
+    const g = this.grid(kw);
+    const kws = ['dentist near me', 'dental clinic indiranagar', 'root canal treatment'].map((label, i) => ({ label, pick: () => this.setState({ kw: i }), bg: i === kw ? '#14151A' : '#fff', fg: i === kw ? '#fff' : '#3A3D47', bd: i === kw ? '#14151A' : '#E4E5EA' }));
+    const sp = this.path([8.4, 7.9, 7.1, 6.2, 5.6, 4.6, 3.9, 3.2].map(v => -v), 260, 80, 8, -9, -2.5);
+    const comps = [
+      { n: 'Kinara Dental (you)', rank: '3.2', top3: 61, rating: '4.8', reviews: 412, you: true },
+      { n: 'SmileCraft Dental', rank: '2.6', top3: 68, rating: '4.6', reviews: 688 },
+      { n: 'Indira Dental Care', rank: '5.8', top3: 34, rating: '4.7', reviews: 251 },
+      { n: 'PearlLine Dental', rank: '7.1', top3: 22, rating: '4.4', reviews: 190 },
+      { n: 'BrightBite Dentistry', rank: '11.4', top3: 9, rating: '4.9', reviews: 76 }
+    ].map((c, i) => ({ ...c, d: i * 90, bd: c.you ? '#FFD9C7' : '#EEF0F3', bg: c.you ? '#FFFBF9' : '#fff', fw: c.you ? 600 : 400, bar: c.you ? '#FF5A1F' : '#98A2B3' }));
+    const S = { ok: ['#ECFDF3', '#067647', '✓', 'Done'], warn: ['#FFFAEB', '#B54708', '!', 'Improve'], fail: ['#FEF3F2', '#B42318', '×', 'Fix now'] };
+    const audit = [['Primary category matches your services', 'ok'], ['Photos added in the last 30 days', 'fail'], ['Holiday hours set for October', 'warn'], ['Description uses service keywords', 'ok'], ['All services listed with prices', 'warn'], ['Questions answered on profile', 'ok']].map(([t, s], i) => ({ t, bg: S[s][0], fg: S[s][1], ic: S[s][2], tag: S[s][3], d: i * 80 }));
+    const P = { amber: ['#FFFAEB', '#B54708'], green: ['#ECFDF3', '#067647'], red: ['#FEF3F2', '#B42318'], gray: ['#F2F3F5', '#3A3D47'] };
+    const alerts = [['Phone number edit suggested', 'By a Google user · 2h ago', 'Needs review', 'amber'], ['Primary category changed', 'Restored to "Dental clinic"', 'Resolved', 'green'], ['Map pin moved 180 m', 'Flagged before it went live', 'Flagged', 'red'], ['5★ review removed', 'Arjun K. · Yesterday', 'Logged', 'gray']].map(([t, s, st, c], i) => ({ t, s, st, bg: P[c][0], fg: P[c][1], d: i * 90 }));
+    const tones = ['Warm', 'Professional', 'Short'].map((label, i) => ({ label, pick: () => this.setState({ tone: i }), bg: i === tone ? '#14151A' : '#fff', fg: i === tone ? '#fff' : '#3A3D47', bd: i === tone ? '#14151A' : '#E4E5EA' }));
+    const senti = [['Doctors & staff', 94], ['Treatment explained', 89], ['Cleanliness', 91], ['Pricing', 66], ['Waiting time', 41]].map(([t, p], i) => ({ t, p, d: i * 90 }));
+    const LS = { Synced: 'green', Updating: 'amber', 'Needs review': 'red' };
+    const listings = [['G', 'Google Business Profile', 'Synced'], ['B', 'Bing Places', 'Synced'], ['A', 'Apple Business Connect', 'Synced'], ['f', 'Facebook', 'Synced'], ['W', 'Waze', 'Updating'], ['F', 'Foursquare', 'Synced'], ['H', 'HERE WeGo', 'Needs review'], ['T', 'TomTom', 'Synced']].map(([i2, n, st], i) => ({ i: i2, n, st, bg: P[LS[st]][0], fg: P[LS[st]][1], d: i * 60 }));
+    const locs = [['Indiranagar, Bengaluru', 92, '2.4', '4.8'], ['Koramangala, Bengaluru', 81, '3.9', '4.7'], ['HSR Layout, Bengaluru', 64, '8.1', '4.5'], ['Andheri West, Mumbai', 88, '3.1', '4.8'], ['Bandra, Mumbai', 58, '11.6', '4.3'], ['Baner, Pune', 76, '5.2', '4.6']].map(([n, score, rank, rating], i) => ({ n, score, rank, rating, d: i * 70, sc: score >= 80 ? '#12B76A' : score >= 65 ? '#F79009' : '#F04438', tick: sel[i] ? '✓' : '', cbBg: sel[i] ? '#FF5A1F' : '#fff', cbBd: sel[i] ? '#FF5A1F' : '#D0D3DA', rowBg: sel[i] ? '#FFFBF9' : '#fff', toggle: () => this.setState(s => { const a = s.sel.slice(); a[i] = !a[i]; return { sel: a }; }) }));
+    const ai = [['ChatGPT', 'Mentioned · #2', 'green', 'Recommends Kinara Dental for its paediatric care and weekend hours.'], ['Gemini', 'Mentioned · #1', 'green', 'Lists Kinara Dental first, citing its 4.8 rating on Google.'], ['Google AI Overviews', 'Not mentioned', 'red', 'Shows SmileCraft Dental and Indira Dental Care instead.']].map(([n, st, c, q], i) => ({ n, st, q, bg: P[c][0], fg: P[c][1], d: i * 120 }));
+    const sov = [['Kinara Dental (you)', 34, '#FF5A1F', 600], ['SmileCraft Dental', 29, '#98A2B3', 400], ['Indira Dental Care', 18, '#98A2B3', 400], ['Others', 19, '#D0D3DA', 400]].map(([n, p, c, fw], i) => ({ n, p, c, fw, w: Math.round(p / 34 * 100), d: i * 90 }));
+    const kpis = [['Calls', '1,284', '18%'], ['Direction requests', '2,310', '12%'], ['Website clicks', '964', '9%'], ['Profile views', '48.2k', '21%']].map(([t, v, c], i) => ({ t, v, c, d: i * 80 }));
+    const cur = this.path([62, 70, 66, 78, 84, 80, 92, 98, 94, 108, 116, 124], 600, 170, 14, 40, 130);
+    const prev = this.path([58, 60, 64, 62, 66, 70, 68, 72, 74, 72, 78, 80], 600, 170, 14, 40, 130);
+    return {
+      root: this.root, path: paths[kind] || 'geo-grid',
+      showFloats: kind === 'hero' && w >= 960, showSide: isGrid && w >= 760,
+      side, isGrid, isComp: kind === 'comp', isAudit: kind === 'audit', isProtect: kind === 'protect', isReviews: kind === 'reviews', isListings: kind === 'listings', isMulti: kind === 'multi', isAi: kind === 'ai', isReports: kind === 'reports',
+      kws, cells: g.cells, g, spark: sp, comps, audit, alerts, tones, typed: this.REPLIES[tone].slice(0, chars), senti, listings, locs, selCount: sel.filter(Boolean).length, ai, sov, kpis,
+      chart: { line: cur.line, area: cur.area, prev: prev.line }
+    };
+  }
+}
+</script>
+</body>
+</html>

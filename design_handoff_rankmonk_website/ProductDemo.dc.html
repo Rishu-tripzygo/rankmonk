@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+</helmet>
+<div style="font-family:'Geist', system-ui, sans-serif; color:#14151A; width:100%">
+  <div ref="{{ outer }}" style="position:relative; width:100%; height:{{ outerH }}px; border-radius:18px; box-shadow:0 0 0 1px rgba(20,21,26,.08), 0 2px 4px rgba(16,24,40,.04), 0 40px 80px -30px rgba(16,24,40,.35); overflow:hidden; background:#fff">
+    <div onPointerDown="{{ onUser }}" style="position:absolute; left:0; top:0; width:1200px; height:720px; transform:scale({{ scale }}); transform-origin:0 0; background:#fff; font-size:14px; line-height:1.4; white-space:nowrap">
+
+      <div style="position:absolute; left:0; top:0; width:1200px; height:44px; background:#F6F6F8; border-bottom:1px solid #E8E9ED; display:flex; align-items:center; gap:14px; padding:0 16px">
+        <div style="display:flex; gap:7px"><span style="width:12px; height:12px; border-radius:50%; background:#FF5F57"></span><span style="width:12px; height:12px; border-radius:50%; background:#FEBC2E"></span><span style="width:12px; height:12px; border-radius:50%; background:#28C840"></span></div>
+        <div style="display:flex; gap:6px; color:#9A9DA6"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 18-6-6 6-6"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg></div>
+        <div style="margin:0 auto; width:520px; height:28px; border-radius:8px; background:#fff; border:1px solid #E8E9ED; display:flex; align-items:center; gap:8px; padding:0 12px; font-size:12.5px; color:#4A4E5A; white-space:nowrap"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#12B76A" stroke-width="2.4" stroke-linecap="round"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg><span style="color:#14151A">dashboard.rankmonk.io</span><span>/kinara-dental/indiranagar/{{ urlPath }}</span></div>
+        <span style="font-size:11px; color:#6B6F7B; border:1px dashed #C9CCD3; border-radius:999px; padding:3px 9px; white-space:nowrap">Sample data</span>
+      </div>
+
+      <div style="position:absolute; left:0; top:44px; width:220px; height:676px; background:#FBFBFC; border-right:1px solid #EEF0F3">
+        <div style="position:absolute; left:18px; top:16px; display:flex; align-items:center; gap:9px">
+          <span style="width:26px; height:26px; border-radius:8px; background:#FF5A1F; display:grid; grid-template-columns:repeat(3,1fr); gap:2px; padding:5px"><i style="background:#fff; border-radius:50%; opacity:.55"></i><i style="background:#fff; border-radius:50%; opacity:.55"></i><i style="background:#fff; border-radius:50%; opacity:.55"></i><i style="background:#fff; border-radius:50%; opacity:.55"></i><i style="background:#fff; border-radius:50%"></i><i style="background:#fff; border-radius:50%; opacity:.55"></i><i style="background:#fff; border-radius:50%; opacity:.55"></i><i style="background:#fff; border-radius:50%; opacity:.55"></i><i style="background:#fff; border-radius:50%; opacity:.55"></i></span>
+          <span style="font-weight:700; font-size:16px; letter-spacing:-.03em">RankMonk</span>
+        </div>
+        <div style="position:absolute; left:12px; top:60px; width:196px; height:48px; border:1px solid #E8E9ED; background:#fff; border-radius:10px; display:flex; align-items:center; gap:10px; padding:0 10px">
+          <span style="width:28px; height:28px; border-radius:7px; background:#E0F2FE; color:#0369A1; font-weight:700; font-size:12px; display:flex; align-items:center; justify-content:center">KD</span>
+          <span style="flex:1; min-width:0"><span style="display:block; font-size:13px; font-weight:600">Kinara Dental</span><span style="display:block; font-size:11.5px; color:#6B6F7B">Indiranagar · 1 of 42</span></span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A9DA6" stroke-width="2" stroke-linecap="round"><path d="m7 15 5 5 5-5M7 9l5-5 5 5"></path></svg>
+        </div>
+        <div style="position:absolute; left:20px; top:120px; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#9A9DA6">Workspace</div>
+        <div style="position:absolute; left:12px; top:128px; width:196px">
+          <sc-for list="{{ nav }}" as="n" hint-placeholder-count="7">
+            <button onClick="{{ n.go }}" style="width:100%; height:36px; margin-top:{{ n.mt }}px; display:flex; align-items:center; gap:10px; padding:0 10px; border:0; border-radius:8px; background:{{ n.bg }}; color:{{ n.fg }}; font:inherit; font-size:13.5px; font-weight:{{ n.fw }}; cursor:pointer; text-align:left; box-shadow:{{ n.sh }}">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{ n.ic }}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><sc-for list="{{ n.icon }}" as="p"><path d="{{ p }}"></path></sc-for></svg>
+              <span style="flex:1">{{ n.label }}</span>
+              <sc-if value="{{ n.hasBadge }}" hint-placeholder-val="{{ false }}"><span style="font-size:11px; font-weight:600; color:#fff; background:#FF5A1F; border-radius:999px; padding:1px 7px">{{ n.badge }}</span></sc-if>
+            </button>
+          </sc-for>
+        </div>
+        <div style="position:absolute; left:12px; bottom:14px; width:196px; display:flex; align-items:center; gap:10px; padding:8px; border-top:1px solid #EEF0F3">
+          <span style="width:30px; height:30px; border-radius:50%; background:#FFE3D6; color:#C2410C; font-weight:600; font-size:12px; display:flex; align-items:center; justify-content:center">AR</span>
+          <span><span style="display:block; font-size:13px; font-weight:600">Ananya Rao</span><span style="display:block; font-size:11.5px; color:#6B6F7B; white-space:nowrap">Marketing lead</span></span>
+        </div>
+      </div>
+
+      <div style="position:absolute; left:220px; top:44px; width:980px; height:56px; border-bottom:1px solid #EEF0F3; display:flex; align-items:center; gap:12px; padding:0 24px">
+        <div style="font-size:13px; color:#6B6F7B; white-space:nowrap">Locations <span style="color:#C9CCD3">/</span> <span style="color:#14151A; font-weight:600">{{ title }}</span></div>
+        <div style="margin-left:auto; width:230px; height:34px; border:1px solid #E8E9ED; border-radius:9px; display:flex; align-items:center; gap:8px; padding:0 10px; color:#9A9DA6; font-size:13px; white-space:nowrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>Search locations, keywords…<span style="margin-left:auto; font-size:11px; border:1px solid #E8E9ED; border-radius:5px; padding:0 5px">⌘K</span></div>
+        <div style="height:34px; border:1px solid #E8E9ED; border-radius:9px; display:flex; align-items:center; gap:8px; padding:0 12px; font-size:13px; white-space:nowrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B6F7B" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>Last 30 days</div>
+        <div style="position:relative; width:34px; height:34px; border:1px solid #E8E9ED; border-radius:9px; display:flex; align-items:center; justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3A3D47" stroke-width="1.9" stroke-linecap="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg><span style="position:absolute; top:6px; right:7px; width:7px; height:7px; border-radius:50%; background:#FF5A1F; border:1.5px solid #fff"></span></div>
+      </div>
+
+      <div style="position:absolute; left:244px; top:124px; width:932px; height:572px">
+
+        <sc-if value="{{ vOverview }}" hint-placeholder-val="{{ true }}">
+          <div data-v="1">
+            <div style="display:flex; align-items:baseline; justify-content:space-between"><div style="font-size:22px; font-weight:600; letter-spacing:-.03em">Good morning, Ananya</div><div style="font-size:13px; color:#6B6F7B; white-space:nowrap">Updated 21 Sep, 07:30</div></div>
+            <div style="margin-top:18px; display:grid; grid-template-columns:repeat(4, 1fr); gap:14px">
+              <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="4">
+                <div data-a="rise" data-d="{{ k.d }}" style="border:1px solid #EEF0F3; border-radius:14px; padding:16px">
+                  <div style="font-size:12.5px; color:#6B6F7B">{{ k.t }}</div>
+                  <div style="display:flex; align-items:baseline; gap:8px; margin-top:6px"><span style="font-size:30px; font-weight:600; letter-spacing:-.04em; font-variant-numeric:tabular-nums">{{ k.v }}</span><span style="font-size:12px; font-weight:600; color:#067647; background:#ECFDF3; padding:2px 7px; border-radius:999px">{{ k.c }}</span></div>
+                  <div style="font-size:12px; color:#9A9DA6; margin-top:4px">{{ k.s }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="margin-top:14px; display:grid; grid-template-columns:1.55fr 1fr; gap:14px">
+              <div style="border:1px solid #EEF0F3; border-radius:14px; padding:16px; height:340px">
+                <div style="display:flex; justify-content:space-between; align-items:center"><div style="font-weight:600">Customer actions</div><div style="display:flex; gap:14px; font-size:12px; color:#6B6F7B"><span style="display:flex; align-items:center; gap:6px"><i style="width:10px; height:3px; border-radius:2px; background:#FF5A1F"></i>Calls</span><span style="display:flex; align-items:center; gap:6px"><i style="width:10px; height:3px; border-radius:2px; background:#14151A"></i>Directions</span></div></div>
+                <div style="display:flex; gap:28px; margin-top:12px"><div><div style="font-size:12px; color:#6B6F7B">Calls</div><div style="font-size:20px; font-weight:600">1,284</div></div><div><div style="font-size:12px; color:#6B6F7B">Directions</div><div style="font-size:20px; font-weight:600">2,310</div></div><div><div style="font-size:12px; color:#6B6F7B">Website clicks</div><div style="font-size:20px; font-weight:600">964</div></div></div>
+                <svg viewBox="0 0 520 190" preserveAspectRatio="none" style="width:100%; height:200px; margin-top:10px; display:block" fill="none">
+                  <path d="M0 47.5H520M0 95H520M0 142.5H520" stroke="#F2F3F5"></path>
+                  <path d="{{ ch.area }}" fill="rgba(255,90,31,.09)"></path>
+                  <path data-a="draw" d="{{ ch.dir }}" stroke="#14151A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path data-a="draw" d="{{ ch.calls }}" stroke="#FF5A1F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </div>
+              <div style="border:1px solid #EEF0F3; border-radius:14px; padding:16px; height:340px">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px"><div style="font-weight:600">Next best actions</div><span style="font-size:12px; color:#6B6F7B">{{ tasksLeft }} left</span></div>
+                <div style="display:flex; flex-direction:column; gap:8px">
+                  <sc-for list="{{ tasks }}" as="t" hint-placeholder-count="4">
+                    <button onClick="{{ t.toggle }}" data-a="rise" data-d="{{ t.d }}" style="display:flex; align-items:center; gap:10px; padding:11px 12px; border:1px solid #EEF0F3; border-radius:10px; background:{{ t.bg }}; font:inherit; text-align:left; cursor:pointer">
+                      <span style="width:18px; height:18px; flex:none; border-radius:50%; border:1.5px solid {{ t.bd }}; background:{{ t.cb }}; color:#fff; font-size:11px; display:flex; align-items:center; justify-content:center">{{ t.tick }}</span>
+                      <span style="flex:1; min-width:0"><span style="display:block; font-size:13px; font-weight:500; text-decoration:{{ t.td }}; color:{{ t.fg }}">{{ t.t }}</span><span style="display:block; font-size:11.5px; color:#9A9DA6">{{ t.s }}</span></span>
+                      <span style="font-size:11px; font-weight:600; color:{{ t.tagFg }}; background:{{ t.tagBg }}; padding:2px 7px; border-radius:999px; white-space:nowrap">{{ t.tag }}</span>
+                    </button>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ vGrid }}" hint-placeholder-val="{{ false }}">
+          <div data-v="1" style="position:relative; height:572px">
+            <div style="position:absolute; left:0; top:0; height:40px; display:flex; align-items:center; gap:8px">
+              <div style="font-size:18px; font-weight:600; letter-spacing:-.02em; margin-right:8px">Geo-grid</div>
+              <sc-for list="{{ kws }}" as="k" hint-placeholder-count="3"><button onClick="{{ k.pick }}" style="border:1px solid {{ k.bd }}; background:{{ k.bg }}; color:{{ k.fg }}; border-radius:999px; padding:5px 12px; font:inherit; font-size:12.5px; cursor:pointer; white-space:nowrap">{{ k.label }}</button></sc-for>
+            </div>
+            <button onClick="{{ toggleCompare }}" style="position:absolute; left:792px; top:6px; width:140px; height:30px; display:flex; align-items:center; gap:8px; justify-content:center; border:1px solid #E8E9ED; border-radius:8px; background:#fff; font:inherit; font-size:12.5px; cursor:pointer"><span style="position:relative; width:26px; height:15px; border-radius:999px; background:{{ cmp.track }}; transition:background .2s"><span style="position:absolute; top:2px; left:{{ cmp.knob }}px; width:11px; height:11px; border-radius:50%; background:#fff; transition:left .2s; box-shadow:0 1px 2px rgba(0,0,0,.2)"></span></span>{{ cmp.label }}</button>
+            <div style="position:absolute; left:0; top:52px; width:420px; height:420px; border-radius:14px; overflow:hidden; background:#EEF1F4; border:1px solid #E8E9ED">
+              <div style="position:absolute; left:-18.33%; top:-32%; width:133.33%; height:133.33%; display:flex; flex-wrap:wrap">
+                <sc-for list="{{ tiles }}" as="t" hint-placeholder-count="16"><img src="{{ t }}" alt="" draggable="false" style="width:25%; height:25%; display:block; object-fit:cover; user-select:none"></sc-for>
+              </div>
+              <div style="position:absolute; inset:0; background:rgba(255,255,255,.12)"></div>
+              <div style="position:absolute; left:21px; top:21px; right:21px; bottom:21px; display:grid; grid-template-columns:repeat(7, 1fr); grid-template-rows:repeat(7, 1fr)">
+                <sc-for list="{{ cells }}" as="c" hint-placeholder-count="49">
+                  <div style="position:relative; display:flex; align-items:center; justify-content:center">
+                    <sc-if value="{{ c.center }}" hint-placeholder-val="{{ false }}"><span data-a="pulse" style="position:absolute; width:34px; height:34px; border-radius:50%; background:rgba(255,90,31,.5)"></span></sc-if>
+                    <button onClick="{{ c.pick }}" data-a="pop" data-d="{{ c.d }}" style="position:relative; width:34px; height:34px; border-radius:50%; background:{{ c.bg }}; color:#fff; font:inherit; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; border:2px solid #fff; box-shadow:{{ c.sh }}; cursor:pointer; font-variant-numeric:tabular-nums; transition:background .35s">{{ c.label }}</button>
+                  </div>
+                </sc-for>
+              </div>
+              <sc-if value="{{ pop.show }}" hint-placeholder-val="{{ false }}">
+                <div data-a="rise" style="position:absolute; left:{{ pop.x }}px; top:{{ pop.y }}px; width:210px; background:#fff; border-radius:12px; box-shadow:0 18px 40px -12px rgba(16,24,40,.35), 0 0 0 1px rgba(16,24,40,.06); padding:12px; z-index:3">
+                  <div style="display:flex; justify-content:space-between; font-size:11.5px; color:#6B6F7B"><span>Point {{ pop.id }}</span><span>{{ pop.dist }}</span></div>
+                  <div style="font-size:13px; font-weight:600; margin:4px 0 8px">Top results here</div>
+                  <sc-for list="{{ pop.rows }}" as="r" hint-placeholder-count="3"><div style="display:flex; align-items:center; gap:8px; padding:5px 6px; border-radius:7px; background:{{ r.bg }}; font-size:12.5px"><span style="width:18px; font-family:'Geist Mono', monospace; color:#6B6F7B">{{ r.p }}</span><span style="flex:1; font-weight:{{ r.fw }}">{{ r.n }}</span><span style="color:#F5A524">★</span><span>{{ r.r }}</span></div></sc-for>
+                </div>
+              </sc-if>
+              <div style="position:absolute; right:6px; bottom:4px; font-size:9px; color:#6B6F7B; background:rgba(255,255,255,.8); padding:1px 4px; border-radius:3px">Tiles © Esri</div>
+            </div>
+            <div style="position:absolute; left:440px; top:52px; width:492px; display:flex; flex-direction:column; gap:14px">
+              <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:12px">
+                <div style="border:1px solid #EEF0F3; border-radius:14px; padding:14px"><div style="font-size:12px; color:#6B6F7B">Average rank</div><div style="font-size:30px; font-weight:600; letter-spacing:-.04em; font-variant-numeric:tabular-nums">{{ g.avg }}</div><div style="font-size:12px; color:{{ g.dc }}">{{ g.delta }}</div></div>
+                <div style="border:1px solid #EEF0F3; border-radius:14px; padding:14px"><div style="font-size:12px; color:#6B6F7B">Top-3 coverage</div><div style="font-size:30px; font-weight:600; letter-spacing:-.04em; font-variant-numeric:tabular-nums">{{ g.top3 }}%</div><div style="font-size:12px; color:#6B6F7B">{{ g.top3n }} of 49 points</div></div>
+                <div style="border:1px solid #EEF0F3; border-radius:14px; padding:14px"><div style="font-size:12px; color:#6B6F7B">Scan</div><div style="font-size:15px; font-weight:600; margin-top:8px">7×7 · 1.5 km</div><div style="font-size:12px; color:#6B6F7B">{{ g.when }}</div></div>
+              </div>
+              <div style="border:1px solid #EEF0F3; border-radius:14px; padding:14px">
+                <div style="font-weight:600; margin-bottom:10px">Competitors on this grid</div>
+                <sc-for list="{{ comps }}" as="c" hint-placeholder-count="4">
+                  <div style="display:grid; grid-template-columns:1fr 150px 44px; gap:10px; align-items:center; padding:7px 0; border-top:1px solid #F2F3F5; font-size:13px"><span style="font-weight:{{ c.fw }}">{{ c.n }}</span><span style="height:7px; border-radius:4px; background:#F2F3F5; overflow:hidden"><span style="display:block; height:100%; width:{{ c.w }}%; background:{{ c.c }}; border-radius:4px; transition:width .6s"></span></span><span style="font-family:'Geist Mono', monospace; font-size:12px; text-align:right">{{ c.w }}%</span></div>
+                </sc-for>
+              </div>
+              <div style="display:flex; gap:14px; font-size:12px; color:#3A3D47">
+                <span style="display:flex; align-items:center; gap:6px"><i style="width:10px; height:10px; border-radius:50%; background:#12B76A"></i>1–3</span>
+                <span style="display:flex; align-items:center; gap:6px"><i style="width:10px; height:10px; border-radius:50%; background:#F79009"></i>4–10</span>
+                <span style="display:flex; align-items:center; gap:6px"><i style="width:10px; height:10px; border-radius:50%; background:#F04438"></i>11–20</span>
+                <span style="display:flex; align-items:center; gap:6px"><i style="width:10px; height:10px; border-radius:50%; background:#98A2B3"></i>20+</span>
+                <span style="margin-left:auto; color:#6B6F7B">Click any point</span>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ vReviews }}" hint-placeholder-val="{{ false }}">
+          <div data-v="1" style="position:relative; height:572px">
+            <div style="position:absolute; left:0; top:0; height:40px; display:flex; align-items:center; gap:10px"><div style="font-size:18px; font-weight:600; letter-spacing:-.02em">Reviews</div><span style="font-size:12px; color:#6B6F7B">412 total · 4.8 average</span></div>
+            <div style="position:absolute; left:0; top:52px; width:364px; height:520px; border:1px solid #EEF0F3; border-radius:14px; overflow:hidden">
+              <sc-for list="{{ revs }}" as="r" hint-placeholder-count="5">
+                <button onClick="{{ r.pick }}" style="width:100%; height:86px; display:flex; gap:10px; padding:14px; border:0; border-bottom:1px solid #F2F3F5; background:{{ r.bg }}; font:inherit; text-align:left; cursor:pointer">
+                  <span style="width:32px; height:32px; flex:none; border-radius:50%; background:{{ r.av }}; color:#14151A; font-weight:600; font-size:12px; display:flex; align-items:center; justify-content:center">{{ r.ini }}</span>
+                  <span style="flex:1; min-width:0"><span style="display:flex; justify-content:space-between; font-size:13px"><span style="font-weight:600">{{ r.n }}</span><span style="color:#9A9DA6; font-size:12px">{{ r.t }}</span></span><span style="display:block; font-size:12px; color:#F5A524; letter-spacing:1px">{{ r.stars }}</span><span style="display:block; font-size:12.5px; color:#4A4E5A; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">{{ r.x }}</span></span>
+                  <sc-if value="{{ r.unread }}" hint-placeholder-val="{{ false }}"><span style="width:8px; height:8px; margin-top:4px; border-radius:50%; background:#FF5A1F"></span></sc-if>
+                </button>
+              </sc-for>
+            </div>
+            <div style="position:absolute; left:380px; top:52px; width:552px; height:520px; border:1px solid #EEF0F3; border-radius:14px">
+              <div style="position:absolute; left:24px; top:20px; right:24px; display:flex; align-items:center; gap:12px"><span style="width:40px; height:40px; border-radius:50%; background:{{ rv.av }}; font-weight:600; display:flex; align-items:center; justify-content:center">{{ rv.ini }}</span><div><div style="font-weight:600">{{ rv.n }}</div><div style="font-size:12px; color:#6B6F7B"><span style="color:#F5A524">{{ rv.stars }}</span> · Google · {{ rv.t }}</div></div><span style="margin-left:auto; font-size:12px; color:#6B6F7B; border:1px solid #EEF0F3; border-radius:999px; padding:3px 10px">{{ rv.topic }}</span></div>
+              <p style="position:absolute; left:24px; top:76px; right:24px; margin:0; white-space:normal; font-size:14.5px; line-height:1.6; color:#14151A">{{ rv.x }}</p>
+              <div style="position:absolute; left:24px; right:24px; top:170px; height:224px; border-radius:12px; border:1px solid {{ reply.bd }}; background:{{ reply.bg }}; padding:16px">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px"><span style="font-size:12.5px; font-weight:600; color:#C2410C">✦ AI reply</span><span style="display:flex; gap:4px"><sc-for list="{{ tones }}" as="t" hint-placeholder-count="3"><button onClick="{{ t.pick }}" style="border:1px solid {{ t.bd }}; background:{{ t.bg }}; color:{{ t.fg }}; border-radius:999px; padding:3px 10px; font:inherit; font-size:11.5px; cursor:pointer">{{ t.label }}</button></sc-for></span></div>
+                <sc-if value="{{ reply.empty }}" hint-placeholder-val="{{ true }}"><div style="font-size:13.5px; color:#9A9DA6; line-height:1.6; white-space:normal">Generate a reply that answers what {{ rv.first }} wrote, in your brand's tone.</div></sc-if>
+                <div style="font-size:14px; line-height:1.65; white-space:normal">{{ reply.text }}<sc-if value="{{ reply.typing }}" hint-placeholder-val="{{ false }}"><span data-a="blink" style="display:inline-block; width:2px; height:15px; background:#FF5A1F; vertical-align:-2px; margin-left:1px"></span></sc-if></div>
+              </div>
+              <button onClick="{{ replyAction }}" style="position:absolute; left:24px; top:410px; width:160px; height:38px; border:0; border-radius:10px; background:{{ reply.btnBg }}; color:#fff; font:inherit; font-size:13.5px; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px">{{ reply.btn }}</button>
+              <span style="position:absolute; left:200px; top:420px; font-size:12.5px; color:#6B6F7B">{{ reply.hint }}</span>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ vAi }}" hint-placeholder-val="{{ false }}">
+          <div data-v="1" style="position:relative; height:572px">
+            <div style="position:absolute; left:0; top:0; height:40px; display:flex; align-items:center; gap:10px"><div style="font-size:18px; font-weight:600; letter-spacing:-.02em">AI visibility</div><span style="font-size:12px; color:#6B6F7B">25 prompts tracked</span></div>
+            <button onClick="{{ runAi }}" style="position:absolute; left:792px; top:3px; width:140px; height:34px; border:0; border-radius:9px; background:#14151A; color:#fff; font:inherit; font-size:13px; font-weight:600; cursor:pointer">{{ ai.btn }}</button>
+            <div style="position:absolute; left:0; top:52px; width:932px; height:56px; border:1px solid #E8E9ED; border-radius:12px; display:flex; align-items:center; gap:12px; padding:0 16px; font-size:15px"><span style="color:#FF5A1F; font-size:16px">✦</span>best dentist in Indiranagar for kids<span style="margin-left:auto; font-size:12px; color:#6B6F7B">Prompt 1 of 25</span></div>
+            <div style="position:absolute; left:0; top:124px; width:580px; display:flex; flex-direction:column; gap:10px">
+              <sc-for list="{{ ai.rows }}" as="a" hint-placeholder-count="3">
+                <div style="position:relative; overflow:hidden; border:1px solid #EEF0F3; border-radius:12px; padding:14px 16px; height:120px">
+                  <div style="display:flex; align-items:center; gap:10px"><span style="width:28px; height:28px; border-radius:8px; background:{{ a.lg }}; color:#fff; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center">{{ a.ab }}</span><span style="font-weight:600">{{ a.n }}</span><span style="margin-left:auto; font-size:11.5px; font-weight:600; padding:3px 9px; border-radius:999px; background:{{ a.bg }}; color:{{ a.fg }}">{{ a.st }}</span></div>
+                  <sc-if value="{{ a.loading }}" hint-placeholder-val="{{ false }}"><div style="margin-top:14px; display:flex; flex-direction:column; gap:8px"><div data-a="shimmer" style="height:10px; width:92%; border-radius:5px; background:linear-gradient(90deg, #F2F3F5 0%, #E4E5EA 50%, #F2F3F5 100%); background-size:200% 100%"></div><div data-a="shimmer" style="height:10px; width:70%; border-radius:5px; background:linear-gradient(90deg, #F2F3F5 0%, #E4E5EA 50%, #F2F3F5 100%); background-size:200% 100%"></div></div></sc-if>
+                  <sc-if value="{{ a.done }}" hint-placeholder-val="{{ true }}"><p data-a="rise" style="margin:12px 0 0; white-space:normal; font-size:13px; line-height:1.55; color:#3A3D47">{{ a.q }}</p></sc-if>
+                </div>
+              </sc-for>
+            </div>
+            <div style="position:absolute; left:596px; top:124px; width:336px; height:380px; border:1px solid #EEF0F3; border-radius:12px; padding:16px">
+              <div style="font-weight:600">Share of AI voice</div>
+              <div style="font-size:12px; color:#6B6F7B; margin-bottom:16px">All prompts · last 30 days</div>
+              <sc-for list="{{ sov }}" as="s" hint-placeholder-count="4"><div style="margin-bottom:14px"><div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:6px"><span style="font-weight:{{ s.fw }}">{{ s.n }}</span><span style="font-family:'Geist Mono', monospace; font-size:12px">{{ s.p }}%</span></div><div style="height:8px; border-radius:4px; background:#F2F3F5; overflow:hidden"><div style="height:100%; width:{{ s.w }}%; background:{{ s.c }}; border-radius:4px; transition:width .8s cubic-bezier(.2,.8,.2,1)"></div></div></div></sc-for>
+              <div style="border-top:1px solid #F2F3F5; padding-top:12px; font-size:12.5px; color:#3A3D47; line-height:1.5; white-space:normal">Most cited source: <b>Google Business Profile reviews</b></div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ vListings }}" hint-placeholder-val="{{ false }}">
+          <div data-v="1" style="position:relative; height:572px">
+            <div style="position:absolute; left:0; top:0; height:40px; display:flex; align-items:center; gap:10px"><div style="font-size:18px; font-weight:600; letter-spacing:-.02em">Listings</div><span style="font-size:12px; color:#6B6F7B">Consistency {{ lst.score }}%</span></div>
+            <button onClick="{{ runSync }}" style="position:absolute; left:792px; top:3px; width:140px; height:34px; border:0; border-radius:9px; background:#FF5A1F; color:#fff; font:inherit; font-size:13px; font-weight:600; cursor:pointer">{{ lst.btn }}</button>
+            <div style="position:absolute; left:0; top:52px; width:932px; border:1px solid #EEF0F3; border-radius:14px; overflow:hidden">
+              <div style="display:grid; grid-template-columns:2fr 2.2fr 1.2fr 1fr; gap:12px; padding:12px 16px; background:#FAFAFB; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:#6B6F7B"><span>Directory</span><span>Details</span><span>Sync</span><span>Status</span></div>
+              <sc-for list="{{ lst.rows }}" as="l" hint-placeholder-count="8">
+                <div style="display:grid; grid-template-columns:2fr 2.2fr 1.2fr 1fr; gap:12px; align-items:center; padding:0 16px; height:50px; border-top:1px solid #F2F3F5; font-size:13px">
+                  <span style="display:flex; align-items:center; gap:10px"><span style="width:28px; height:28px; border-radius:8px; background:#F4F5F7; font-weight:700; font-size:12px; display:flex; align-items:center; justify-content:center">{{ l.i }}</span>{{ l.n }}</span>
+                  <span style="color:{{ l.dfg }}">{{ l.det }}</span>
+                  <span style="height:6px; border-radius:3px; background:#F2F3F5; overflow:hidden"><span style="display:block; height:100%; width:{{ l.p }}%; background:{{ l.pc }}; transition:width {{ l.dur }}ms linear"></span></span>
+                  <span><span style="font-size:11.5px; font-weight:600; padding:3px 9px; border-radius:999px; background:{{ l.bg }}; color:{{ l.fg }}">{{ l.st }}</span></span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+      <sc-if value="{{ toast.show }}" hint-placeholder-val="{{ false }}">
+        <div data-a="toast" style="position:absolute; left:50%; bottom:24px; transform:translateX(-50%); display:flex; align-items:center; gap:10px; background:#14151A; color:#fff; padding:11px 16px; border-radius:12px; font-size:13.5px; box-shadow:0 20px 40px -12px rgba(0,0,0,.4); z-index:20"><span style="width:18px; height:18px; border-radius:50%; background:#12B76A; display:flex; align-items:center; justify-content:center; font-size:11px">✓</span>{{ toast.text }}</div>
+      </sc-if>
+
+      <sc-if value="{{ showCursor }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute; left:{{ cur.x }}px; top:{{ cur.y }}px; z-index:30; pointer-events:none; transition:left .9s cubic-bezier(.65,0,.35,1), top .9s cubic-bezier(.65,0,.35,1)">
+          <span ref="{{ rippleRef }}" style="position:absolute; left:-18px; top:-18px; width:36px; height:36px; border-radius:50%; background:rgba(255,90,31,.35); opacity:0"></span>
+          <svg width="24" height="24" viewBox="0 0 24 24" style="position:absolute; left:-4px; top:-2px; filter:drop-shadow(0 2px 3px rgba(0,0,0,.3))"><path d="M4 2 L4 19 L8.5 14.8 L11.5 21.5 L14.3 20.3 L11.4 13.8 L17.5 13.8 Z" fill="#14151A" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"></path></svg>
+        </div>
+      </sc-if>
+      <sc-if value="{{ showCaption }}" hint-placeholder-val="{{ false }}">
+        <div ref="{{ capRef }}" style="position:absolute; left:220px; right:0; top:654px; display:flex; justify-content:center; z-index:25; pointer-events:none"><div style="display:flex; align-items:center; gap:10px; background:rgba(20,21,26,.92); color:#fff; padding:12px 18px; border-radius:14px; font-size:15px; font-weight:500; white-space:nowrap; box-shadow:0 20px 40px -12px rgba(0,0,0,.4); backdrop-filter:blur(8px)"><span style="width:22px; height:22px; border-radius:7px; background:#FF5A1F; display:flex; align-items:center; justify-content:center; font-size:12px">{{ capN }}</span>{{ caption }}</div></div>
+      </sc-if>
+    </div>
+  </div>
+
+  <div style="margin-top:16px; display:flex; flex-wrap:wrap; align-items:center; gap:10px">
+    <button onClick="{{ togglePlay }}" aria-label="Play or pause tour" style="width:40px; height:40px; flex:none; border-radius:50%; border:1px solid #E1E3E8; background:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer">
+      <sc-if value="{{ playing }}" hint-placeholder-val="{{ true }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="#14151A"><rect x="6" y="4" width="4" height="16" rx="1"></rect><rect x="14" y="4" width="4" height="16" rx="1"></rect></svg></sc-if>
+      <sc-if value="{{ paused }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="#14151A"><path d="M7 4v16l13-8z"></path></svg></sc-if>
+    </button>
+    <div style="flex:1; min-width:0; display:grid; grid-template-columns:repeat(auto-fit, minmax(110px, 1fr)); gap:8px">
+      <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="5">
+        <button onClick="{{ c.go }}" style="position:relative; overflow:hidden; text-align:left; padding:10px 12px 12px; border-radius:12px; border:1px solid {{ c.bd }}; background:{{ c.bg }}; font:inherit; cursor:pointer">
+          <span style="display:block; font-size:11px; color:#9A9DA6; font-family:'Geist Mono', monospace">0{{ c.n }}</span>
+          <span style="display:block; font-size:13.5px; font-weight:600; color:{{ c.fg }}; white-space:nowrap">{{ c.label }}</span>
+          <span style="position:absolute; left:0; right:0; bottom:0; height:3px; background:#F2F3F5"><span data-chbar="{{ c.i }}" style="display:block; height:100%; width:100%; background:#FF5A1F; transform-origin:left center; transform:scaleX({{ c.fill }})"></span></span>
+        </button>
+      </sc-for>
+    </div>
+    <span style="font-size:13px; color:#6B6F7B; white-space:nowrap">{{ status }}</span>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1100, &quot;height&quot;: 760}}">
+class Component extends DCLogic {
+  state = { view: 'overview', playing: true, manual: false, ch: 0, cur: { x: 760, y: 420 }, click: 0, caption: '', capN: 1, kw: 0, sel: null, compare: false, rev: 0, tone: 0, chars: 0, replyState: 'idle', aiState: 'done', syncState: 'idle', sync: [], toast: null, tasks: [false, false, true, false], scale: 1 };
+  outer = React.createRef(); rippleRef = React.createRef(); capRef = React.createRef();
+  NAVI = {
+    home: ['M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z'],
+    pin: ['M20 10c0 4.99-5.54 10.19-7.4 11.8a1 1 0 0 1-1.2 0C9.54 20.19 4 14.99 4 10a8 8 0 0 1 16 0', 'M12 7a3 3 0 1 0 0 6 3 3 0 1 0 0-6'],
+    users: ['M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2', 'M9 3a4 4 0 1 0 0 8 4 4 0 1 0 0-8', 'M22 21v-2a4 4 0 0 0-3-3.87', 'M16 3.13a4 4 0 0 1 0 7.75'],
+    msg: ['M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z'],
+    list: ['m3 17 2 2 4-4', 'm3 7 2 2 4-4', 'M13 6h8', 'M13 12h8', 'M13 18h8'],
+    spark: ['M9.94 15.5A2 2 0 0 0 8.5 14.06l-6.14-1.58a.5.5 0 0 1 0-.96L8.5 9.94A2 2 0 0 0 9.94 8.5l1.58-6.14a.5.5 0 0 1 .96 0L14.06 8.5a2 2 0 0 0 1.44 1.44l6.14 1.58a.5.5 0 0 1 0 .96l-6.14 1.58a2 2 0 0 0-1.44 1.44l-1.58 6.14a.5.5 0 0 1-.96 0z'],
+    chart: ['M3 3v18h18', 'M18 17V9', 'M13 17V5', 'M8 17v-3']
+  };
+  NAV = [['overview', 'Overview', 'home'], ['grid', 'Geo-grid', 'pin'], ['comp', 'Competitors', 'users'], ['reviews', 'Reviews', 'msg', 3], ['listings', 'Listings', 'list'], ['ai', 'AI visibility', 'spark'], ['reports', 'Reports', 'chart']];
+  NAVY = i => 44 + 128 + i * 38 + 18 + (i ? 0 : 0);
+  CH = [['overview', 'Overview'], ['grid', 'Geo-grid'], ['reviews', 'AI replies'], ['ai', 'AI visibility'], ['listings', 'Listings']];
+  CHDUR = [3400, 9800, 8200, 6600, 6200];
+  REVS = [
+    ['Priya S.', 'PS', '#FFE3D6', 4, '1h', 'Dr. Rao was patient and explained every step of my root canal. The waiting time was long though, almost 40 minutes past my slot.', 'Waiting time'],
+    ['Arjun K.', 'AK', '#DCFCE7', 5, '3h', 'Best dental clinic in Indiranagar. Painless cleaning and very friendly staff.', 'Staff'],
+    ['Meera J.', 'MJ', '#E0F2FE', 5, '5h', 'Clean, modern and on time. Booking on WhatsApp was easy.', 'Booking'],
+    ['Rohit M.', 'RM', '#FEF3C7', 2, '1d', 'Treatment was fine but the billing was confusing and nobody explained the charges.', 'Pricing'],
+    ['Sana A.', 'SA', '#EDE9FE', 5, '2d', 'My kids actually like coming here. Thank you Dr. Kavya!', 'Kids care']
+  ];
+  REPLIES = [
+    "Thank you so much, Priya! We're glad Dr. Rao took the time to explain every step. You're right about the wait, and we're sorry. We've added evening slots to keep queues shorter. See you at your next check-up!",
+    'Thank you for your feedback, Priya. We are pleased Dr. Rao explained your treatment clearly. We apologise for the delay and have extended our appointment hours to reduce waiting times.',
+    "Thanks, Priya! Glad Dr. Rao helped. Sorry about the wait, we're adding more slots to fix it."
+  ];
+  tiles() { const r = []; for (let y = 15190; y <= 15193; y++) for (let x = 23449; x <= 23452; x++) r.push('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/15/' + y + '/' + x); return r; }
+  rc(r) { return r <= 3 ? '#12B76A' : r <= 10 ? '#F79009' : r <= 20 ? '#F04438' : '#98A2B3'; }
+  rank(i, j, k, before) {
+    const dx = i - 3, dy = j - 3, dist = Math.sqrt(dx * dx + dy * dy), base = [1.15, 1.7, 2.4][k] + (before ? 1.6 : 0);
+    const noise = ((i * 7 + j * 13 + k * 5) % 5) - 2;
+    let r = Math.round(1 + dist * base + noise * 0.7 + (dy > 0 ? dist * 0.4 * k : 0) - (dx < 0 ? 0.6 : 0) + (before ? 2 : 0));
+    return Math.max(1, r);
+  }
+  // global ownership so timers from a replaced instance stop
+  own() { window.__rmDemo = this; }
+  alive(tok) { return window.__rmDemo === this && tok === this.tok && this.state.playing; }
+  wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+  async move(x, y, tok) { this.setState({ cur: { x, y } }); await this.wait(950); return this.alive(tok); }
+  tap() { this.setState(s => ({ click: s.click + 1 })); }
+  cap(t) { this.setState(s => ({ caption: t, capN: s.ch + 1 })); }
+  async run(from) {
+    const tok = ++this.tok; this.setState({ playing: true, manual: false });
+    await this.wait(60);
+    for (let c = from; ; c = (c + 1) % this.CH.length) {
+      if (!this.alive(tok)) return;
+      this.setState({ ch: c, toast: null });
+      if (c === 0) {
+        this.setState({ view: 'overview', sel: null, compare: false, replyState: 'idle', chars: 0, aiState: 'done', syncState: 'idle', sync: [] });
+        this.cap('Every location, rank, review and listing on one screen.');
+        await this.move(760, 420, tok); if (!this.alive(tok)) return;
+        await this.wait(2400);
+      } else if (c === 1) {
+        this.cap('Scan your rank street by street.');
+        if (!await this.move(110, this.NAVY(1), tok)) return;
+        this.tap(); this.setState({ view: 'grid', sel: null, compare: false });
+        await this.wait(1500); if (!this.alive(tok)) return;
+        this.cap('Click any point to see who ranks above you there.');
+        if (!await this.move(244 + 21 + 54 * 5 + 27, 124 + 52 + 21 + 54 * 1 + 27, tok)) return;
+        this.tap(); this.setState({ sel: 5 + 1 * 7 });
+        await this.wait(2200); if (!this.alive(tok)) return;
+        this.cap('Compare with last month to prove progress.');
+        if (!await this.move(244 + 862, 124 + 21, tok)) return;
+        this.tap(); this.setState({ compare: true, sel: null });
+        await this.wait(1800); if (!this.alive(tok)) return;
+        this.tap(); this.setState({ compare: false });
+        await this.wait(1200);
+      } else if (c === 2) {
+        this.cap('New reviews from every location land in one inbox.');
+        if (!await this.move(110, this.NAVY(3), tok)) return;
+        this.tap(); this.setState({ view: 'reviews', rev: 0, replyState: 'idle', chars: 0 });
+        await this.wait(900); if (!this.alive(tok)) return;
+        this.cap('AI drafts a reply that answers what the customer said.');
+        if (!await this.move(244 + 380 + 24 + 80, 124 + 52 + 410 + 19, tok)) return;
+        this.tap(); this.startReply();
+        await this.wait(3400); if (!this.alive(tok)) return;
+        this.tap(); this.postReply();
+        await this.wait(1600);
+      } else if (c === 3) {
+        this.cap('See whether ChatGPT and Gemini recommend you.');
+        if (!await this.move(110, this.NAVY(5), tok)) return;
+        this.tap(); this.setState({ view: 'ai', aiState: 'done' });
+        await this.wait(800); if (!this.alive(tok)) return;
+        if (!await this.move(244 + 862, 124 + 20, tok)) return;
+        this.tap(); this.startAi();
+        await this.wait(3600);
+      } else if (c === 4) {
+        this.cap('Fix your details on 20+ directories in one click.');
+        if (!await this.move(110, this.NAVY(4), tok)) return;
+        this.tap(); this.setState({ view: 'listings', syncState: 'idle', sync: [] });
+        await this.wait(700); if (!this.alive(tok)) return;
+        if (!await this.move(244 + 862, 124 + 20, tok)) return;
+        this.tap(); this.startSync();
+        await this.wait(3400);
+      }
+    }
+  }
+  pause(manual) { this.tok++; this.setState({ playing: false, manual: !!manual }); const a = this.chAnim; a && a.pause(); }
+  startReply() {
+    clearInterval(this.rt); this.setState({ replyState: 'typing', chars: 0 });
+    this.rt = setInterval(() => { const full = this.REPLIES[this.state.tone]; if (this.state.chars >= full.length) { clearInterval(this.rt); this.setState({ replyState: 'ready' }); return; } this.setState(s => ({ chars: Math.min(full.length, s.chars + 3) })); }, 22);
+  }
+  postReply() { clearInterval(this.rt); this.setState(s => ({ replyState: 'posted', chars: this.REPLIES[s.tone].length, toast: { text: 'Reply posted to Google' } })); clearTimeout(this.tt); this.tt = setTimeout(() => this.setState({ toast: null }), 2200); }
+  startAi() { clearTimeout(this.at); this.setState({ aiState: 'loading' }); this.at = setTimeout(() => this.setState({ aiState: 'done' }), 1700); }
+  startSync() {
+    this.setState({ syncState: 'running', sync: [] });
+    [0, 1, 2, 3, 4, 5, 6, 7].forEach(i => setTimeout(() => this.setState(s => ({ sync: s.sync.concat(i) })), 120 + i * 200));
+    clearTimeout(this.st); this.st = setTimeout(() => this.setState({ syncState: 'done', toast: { text: '8 listings synced' } }), 2300);
+    clearTimeout(this.tt); this.tt = setTimeout(() => this.setState({ toast: null }), 3600);
+  }
+  componentDidMount() {
+    this.own(); this.tok = 0;
+    if (window.ResizeObserver && this.outer.current) { this.ro = new ResizeObserver(es => { const w = es[0].contentRect.width; const s = Math.max(.2, w / 1200); if (Math.abs(s - this.state.scale) > .004) this.setState({ scale: s }); }); this.ro.observe(this.outer.current); }
+    this.fit = () => { const el = this.outer.current; if (!el) return; const w = el.getBoundingClientRect().width || el.offsetWidth; if (w) { const s = Math.max(.2, w / 1200); if (Math.abs(s - this.state.scale) > .004) this.setState({ scale: s }); } };
+    window.addEventListener('resize', this.fit); [0, 50, 300, 1000].forEach(t => setTimeout(this.fit, t));
+    this._p = {}; this.anim(); setTimeout(() => this.run(0), 700);
+  }
+  componentWillUnmount() { this.tok++; this.ro && this.ro.disconnect(); clearInterval(this.rt); if (window.__rmDemo === this) window.__rmDemo = null; }
+  componentDidUpdate() {
+    const p = this._p || {}; const s = this.state;
+    if (p.click !== undefined && p.click !== s.click && this.rippleRef.current) this.rippleRef.current.animate([{ transform: 'scale(.3)', opacity: .9 }, { transform: 'scale(1.6)', opacity: 0 }], { duration: 520, easing: 'ease-out' });
+    if (p.caption !== s.caption && this.capRef.current) this.capRef.current.animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 380, easing: 'cubic-bezier(.2,.8,.2,1)' });
+    if (p.ch !== s.ch || p.playing !== s.playing) this.chapterBar();
+    if (p.kw !== s.kw || p.compare !== s.compare) { const r = this.outer.current; r && r.querySelectorAll('[data-a="pop"]').forEach(el => { el.__a = 0; }); }
+    this._p = { click: s.click, caption: s.caption, ch: s.ch, playing: s.playing, kw: s.kw, compare: s.compare };
+    this.anim();
+  }
+  chapterBar() {
+    const r = this.outer.current && this.outer.current.parentNode; if (!r) return;
+    this.chAnim && this.chAnim.cancel();
+    if (!this.state.playing) return;
+    const el = r.querySelector('[data-chbar="' + this.state.ch + '"]'); if (!el) return;
+    this.chAnim = el.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: this.CHDUR[this.state.ch], easing: 'linear', fill: 'forwards' });
+  }
+  anim() {
+    const r = this.outer.current; if (!r) return; const E = 'cubic-bezier(.2,.8,.2,1)';
+    r.querySelectorAll('[data-a]').forEach(el => {
+      if (el.__a) return; el.__a = 1; const t = el.getAttribute('data-a'), d = +(el.getAttribute('data-d') || 0);
+      if (t === 'pop') el.animate([{ transform: 'scale(0)', opacity: 0 }, { transform: 'scale(1.15)', opacity: 1, offset: .7 }, { transform: 'scale(1)', opacity: 1 }], { duration: 480, delay: d, easing: E, fill: 'backwards' });
+      else if (t === 'rise') el.animate([{ transform: 'translateY(10px)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 500, delay: d, easing: E, fill: 'backwards' });
+      else if (t === 'draw') { const L = el.getTotalLength ? el.getTotalLength() : 900; el.style.strokeDasharray = L; el.animate([{ strokeDashoffset: L }, { strokeDashoffset: 0 }], { duration: 1500, delay: 200, easing: E, fill: 'backwards' }); }
+      else if (t === 'pulse') el.animate([{ transform: 'scale(1)', opacity: .7 }, { transform: 'scale(2.6)', opacity: 0 }], { duration: 1800, iterations: Infinity, easing: 'ease-out' });
+      else if (t === 'blink') el.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 800, iterations: Infinity, easing: 'steps(2, jump-none)' });
+      else if (t === 'shimmer') el.animate([{ backgroundPosition: '200% 0' }, { backgroundPosition: '-200% 0' }], { duration: 1200, iterations: Infinity });
+      else if (t === 'toast') el.animate([{ opacity: 0, transform: 'translate(-50%, 12px)' }, { opacity: 1, transform: 'translate(-50%, 0)' }], { duration: 360, easing: E });
+    });
+  }
+  path(vals, W, H, pad, lo, hi) { const st = W / (vals.length - 1); const pts = vals.map((v, i) => [i * st, pad + (H - 2 * pad) * (1 - (v - lo) / (hi - lo))]); return pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' '); }
+  renderVals() {
+    this.own();
+    const s = this.state, P = { g: ['#ECFDF3', '#067647'], a: ['#FFFAEB', '#B54708'], r: ['#FEF3F2', '#B42318'], n: ['#F2F3F5', '#3A3D47'] };
+    const vi = { overview: 0, grid: 1, comp: 2, reviews: 3, listings: 4, ai: 5, reports: 6 }[s.view];
+    const nav = this.NAV.map(([k, label, ic, badge], i) => ({ label, icon: this.NAVI[ic], mt: i ? 2 : 0, bg: i === vi ? '#fff' : 'transparent', fg: i === vi ? '#14151A' : '#4A4E5A', fw: i === vi ? 600 : 400, sh: i === vi ? '0 1px 2px rgba(16,24,40,.08), 0 0 0 1px #EEF0F3' : 'none', ic: i === vi ? '#FF5A1F' : '#9A9DA6', hasBadge: !!badge && s.replyState !== 'posted', badge, go: () => ['overview', 'grid', 'reviews', 'listings', 'ai'].includes(k) && this.setState({ view: k, sel: null }) }));
+    const titles = { overview: 'Kinara Dental, Indiranagar', grid: 'Geo-grid', reviews: 'Reviews', ai: 'AI visibility', listings: 'Listings' };
+    const calls = [30, 34, 31, 38, 36, 42, 40, 46, 44, 51, 49, 55, 58, 54, 61];
+    const dirs = [52, 55, 58, 54, 60, 63, 61, 66, 70, 68, 72, 75, 73, 79, 82];
+    const callsP = this.path(calls, 520, 190, 12, 20, 90), dirP = this.path(dirs, 520, 190, 12, 20, 90);
+    const TK = [['Add 5 new photos', 'Profiles with fresh photos rank higher', 'High', 'r'], ['Set Diwali holiday hours', 'Due in 3 days · 42 locations', 'Due soon', 'a'], ['Reply to 3 new reviews', 'Average reply time: 4h', 'Done', 'g'], ['Add "Invisalign" to services', 'Searched 1.2k times a month nearby', 'Medium', 'n']];
+    const tasks = TK.map(([t, sub, tag, c], i) => { const on = s.tasks[i]; return { t, s: sub, tag: on ? 'Done' : tag, tagBg: P[on ? 'g' : c][0], tagFg: P[on ? 'g' : c][1], tick: on ? '✓' : '', cb: on ? '#12B76A' : '#fff', bd: on ? '#12B76A' : '#C9CCD3', td: on ? 'line-through' : 'none', fg: on ? '#9A9DA6' : '#14151A', bg: '#fff', d: i * 70, toggle: () => this.setState(x => { const a = x.tasks.slice(); a[i] = !a[i]; return { tasks: a }; }) }; });
+    const cells = []; let sum = 0, n = 0, t3 = 0;
+    for (let j = 0; j < 7; j++) for (let i = 0; i < 7; i++) {
+      const r = this.rank(i, j, s.kw, s.compare), idx = j * 7 + i;
+      if (r <= 20) { sum += r; n++; } if (r <= 3) t3++;
+      cells.push({ label: r > 20 ? '20+' : String(r), bg: this.rc(r), center: i === 3 && j === 3, d: Math.round(Math.hypot(i - 3, j - 3) * 60), sh: s.sel === idx ? '0 0 0 3px #14151A, 0 4px 10px rgba(0,0,0,.25)' : '0 2px 6px rgba(16,24,40,.25)', pick: () => this.setState({ sel: s.sel === idx ? null : idx }) });
+    }
+    const avg = (sum / n).toFixed(1);
+    let pop = { show: false, rows: [] };
+    if (s.sel !== null && s.sel !== undefined) {
+      const i = s.sel % 7, j = Math.floor(s.sel / 7), r = this.rank(i, j, s.kw, s.compare);
+      const cx = 21 + 54 * i + 27, cy = 21 + 54 * j + 27;
+      const names = [['SmileCraft Dental', '4.6'], ['Indira Dental Care', '4.7'], ['PearlLine Dental', '4.4'], ['BrightBite Dentistry', '4.9']];
+      const rows = []; let k = 0;
+      for (let p = 1; p <= 3; p++) { if (p === r) rows.push({ p, n: 'Kinara Dental (you)', r: '4.8', fw: 700, bg: '#FFF1EA' }); else rows.push({ p, n: names[k][0], r: names[k++][1], fw: 400, bg: 'transparent' }); }
+      if (r > 3) rows.push({ p: r > 20 ? '20+' : r, n: 'Kinara Dental (you)', r: '4.8', fw: 700, bg: '#FFF1EA' });
+      pop = { show: true, rows, id: String.fromCharCode(65 + j) + (i + 1), dist: (Math.hypot(i - 3, j - 3) * 0.5).toFixed(1) + ' km away', x: i >= 4 ? cx - 230 : cx + 24, y: Math.min(Math.max(cy - 40, 8), 420 - 190) };
+    }
+    const kws = ['dentist near me', 'dental clinic indiranagar', 'root canal treatment'].map((label, i) => ({ label, pick: () => this.setState({ kw: i, sel: null }), bg: i === s.kw ? '#14151A' : '#fff', fg: i === s.kw ? '#fff' : '#3A3D47', bd: i === s.kw ? '#14151A' : '#E4E5EA' }));
+    const comps = [['Kinara Dental (you)', s.compare ? 38 : 61, '#FF5A1F', 600], ['SmileCraft Dental', s.compare ? 70 : 57, '#98A2B3', 400], ['Indira Dental Care', 34, '#98A2B3', 400], ['PearlLine Dental', s.compare ? 26 : 18, '#98A2B3', 400]].map(([nm, w, c, fw]) => ({ n: nm, w, c, fw }));
+    const rv0 = this.REVS[s.rev];
+    const star = k => '★★★★★'.slice(0, k) + '☆☆☆☆☆'.slice(0, 5 - k);
+    const revs = this.REVS.map((r, i) => ({ n: r[0], ini: r[1], av: r[2], stars: star(r[3]), t: r[4], x: r[5], bg: i === s.rev ? '#FFF8F4' : '#fff', unread: i === 0 && s.replyState !== 'posted', pick: () => this.setState({ rev: i, replyState: 'idle', chars: 0 }) }));
+    const full = this.REPLIES[s.tone], rs = s.replyState;
+    const replyText = s.rev === 0 ? full.slice(0, rs === 'idle' ? 0 : rs === 'typing' ? s.chars : full.length) : (rs === 'idle' ? '' : 'Thank you for taking the time to share this, ' + rv0[0].split(' ')[0] + '. We have passed your feedback to the team.');
+    const reply = { text: replyText, empty: rs === 'idle', typing: rs === 'typing', bd: rs === 'idle' ? '#EEF0F3' : '#FFD9C7', bg: rs === 'idle' ? '#FCFCFD' : '#FFFBF9', btn: rs === 'idle' ? '✦ Generate reply' : rs === 'posted' ? '✓ Posted' : 'Post reply', btnBg: rs === 'posted' ? '#12B76A' : rs === 'idle' ? '#14151A' : '#FF5A1F', hint: rs === 'posted' ? 'Posted to Google just now' : rs === 'ready' ? 'Review it, then post' : '' };
+    const tones = ['Warm', 'Professional', 'Short'].map((label, i) => ({ label, pick: () => { this.setState({ tone: i }); if (this.state.replyState !== 'idle') setTimeout(() => this.startReply(), 0); }, bg: i === s.tone ? '#14151A' : '#fff', fg: i === s.tone ? '#fff' : '#3A3D47', bd: i === s.tone ? '#14151A' : '#E4E5EA' }));
+    const loading = s.aiState === 'loading';
+    const AIR = [['ChatGPT', 'GPT', '#10A37F', 'Mentioned · #2', 'g', 'Recommends Kinara Dental for its paediatric care and weekend hours, after SmileCraft Dental.'], ['Gemini', 'G', '#4F46E5', 'Mentioned · #1', 'g', 'Lists Kinara Dental first and cites its 4.8 rating from 412 Google reviews.'], ['Google AI Overviews', 'AI', '#EA4335', 'Not mentioned', 'r', 'Shows SmileCraft Dental and Indira Dental Care. Add kids-care details to your profile to compete.']];
+    const ai = { btn: loading ? 'Checking…' : 'Run check', rows: AIR.map(([nm, ab, lg, st, c, q]) => ({ n: nm, ab, lg, st: loading ? 'Checking…' : st, bg: loading ? P.n[0] : P[c][0], fg: loading ? P.n[1] : P[c][1], q, loading, done: !loading })) };
+    const sov = [['Kinara Dental (you)', 34, '#FF5A1F', 600], ['SmileCraft Dental', 29, '#98A2B3', 400], ['Indira Dental Care', 18, '#98A2B3', 400], ['Others', 19, '#D0D3DA', 400]].map(([nm, p, c, fw]) => ({ n: nm, p, c, fw, w: loading ? 0 : Math.round(p / 34 * 100) }));
+    const LR = [['G', 'Google Business Profile', 'Matches', 0], ['B', 'Bing Places', 'Matches', 0], ['A', 'Apple Business Connect', 'Old phone number', 1], ['f', 'Facebook', 'Matches', 0], ['W', 'Waze', 'Missing holiday hours', 1], ['F', 'Foursquare', 'Matches', 0], ['H', 'HERE WeGo', 'Wrong category', 1], ['T', 'TomTom', 'Matches', 0]];
+    const lrows = LR.map(([i2, nm, det, bad], i) => { const done = s.syncState === 'done' || s.sync.includes(i); const running = s.syncState === 'running'; return { i: i2, n: nm, det: done ? 'Matches' : det, dfg: bad && !done ? '#B42318' : '#4A4E5A', p: done ? 100 : bad ? 40 : 100, pc: done || !bad ? '#12B76A' : '#F79009', dur: running ? 500 : 0, st: done ? 'Synced' : bad ? 'Needs fix' : 'Synced', bg: done || !bad ? P.g[0] : P.r[0], fg: done || !bad ? P.g[1] : P.r[1] }; });
+    const bad = lrows.filter(l => l.st !== 'Synced').length;
+    const chapters = this.CH.map(([k, label], i) => ({ i, n: i + 1, label, fill: s.playing ? (i < s.ch ? 1 : 0) : (i < s.ch ? 1 : i === s.ch ? .5 : 0), bg: i === s.ch ? '#fff' : '#FAFAFB', bd: i === s.ch ? '#FFB899' : '#EEF0F3', fg: i === s.ch ? '#14151A' : '#6B6F7B', go: () => { this.run(i); } }));
+    return {
+      outer: this.outer, rippleRef: this.rippleRef, capRef: this.capRef, scale: s.scale, outerH: Math.round(720 * s.scale),
+      onUser: e => { if (e && e.isTrusted && this.state.playing) this.pause(true); },
+      urlPath: { overview: 'overview', grid: 'geo-grid', reviews: 'reviews', ai: 'ai-visibility', listings: 'listings' }[s.view], title: titles[s.view], nav,
+      vOverview: s.view === 'overview', vGrid: s.view === 'grid', vReviews: s.view === 'reviews', vAi: s.view === 'ai', vListings: s.view === 'listings',
+      kpis: [['Profile score', '78', '+6', 'of 100 · 6 fixes open'], ['Average rank', '3.2', '▲ 5.2', '"dentist near me"'], ['Rating', '4.8', '+0.1', '412 Google reviews'], ['AI mention rate', '64%', '+12 pts', 'across 25 prompts']].map(([t, v, c, sub], i) => ({ t, v, c, s: sub, d: i * 70 })),
+      ch: { calls: callsP, dir: dirP, area: callsP + ' L520 190 L0 190 Z' }, tasks, tasksLeft: s.tasks.filter(x => !x).length,
+      tiles: this.tiles(), cells, kws, comps, pop,
+      g: { avg, top3: Math.round(t3 / 49 * 100), top3n: t3, delta: s.compare ? '30 days ago' : '▲ 5.2 vs last month', dc: s.compare ? '#6B6F7B' : '#067647', when: s.compare ? 'Scanned 21 Aug' : 'Scanned 21 Sep' },
+      cmp: { label: s.compare ? '30 days ago' : 'Compare', track: s.compare ? '#FF5A1F' : '#D0D3DA', knob: s.compare ? 13 : 2 }, toggleCompare: () => this.setState(x => ({ compare: !x.compare, sel: null })),
+      revs, rv: { n: rv0[0], first: rv0[0].split(' ')[0], ini: rv0[1], av: rv0[2], stars: star(rv0[3]), t: rv0[4], x: rv0[5], topic: rv0[6] }, reply, tones,
+      replyAction: () => { const r = this.state.replyState; if (r === 'idle') this.startReply(); else if (r === 'ready' || r === 'typing') this.postReply(); },
+      ai, sov, runAi: () => this.startAi(),
+      lst: { rows: lrows, score: bad ? 88 : 100, btn: s.syncState === 'running' ? 'Syncing…' : s.syncState === 'done' ? '✓ All synced' : 'Sync all' }, runSync: () => this.state.syncState !== 'running' && this.startSync(),
+      toast: s.toast ? { show: true, text: s.toast.text } : { show: false },
+      showCursor: s.playing, cur: s.cur, showCaption: s.playing && !!s.caption, caption: s.caption, capN: s.capN,
+      playing: s.playing, paused: !s.playing, togglePlay: () => this.state.playing ? this.pause(false) : this.run(this.state.ch), chapters,
+      status: s.playing ? 'Guided tour playing' : s.manual ? 'You’re in control. Press play to resume.' : 'Tour paused'
+    };
+  }
+}
+</script>
+</body>
+</html>
