@@ -37,7 +37,7 @@ export function Footer() {
   return (
     <footer style={{ position: "relative", overflow: "hidden", background: "var(--footer-bg)", color: "#fff" }}>
       <div className="glow" aria-hidden="true" style={{ left: "50%", top: -320, width: 1000, height: 600, transform: "translateX(-50%)", background: "radial-gradient(closest-side, rgba(255,90,31,.14), transparent)" }} />
-      <div className="wrap" style={{ position: "relative", paddingTop: "clamp(64px, 8vw, 96px)" }}>
+      <div className="wrap" style={{ position: "relative", zIndex: 1, paddingTop: "clamp(64px, 8vw, 96px)" }}>
         <div className="row" style={{ justifyContent: "space-between", alignItems: "flex-end", gap: 40 }}>
           <div style={{ maxWidth: 620 }}>
             <p style={{ margin: 0, fontSize: "clamp(34px, 5vw, 60px)", lineHeight: 1.02, letterSpacing: "-.045em", fontWeight: 600, textWrap: "balance" }}>Be the name customers find first.</p>
@@ -95,7 +95,7 @@ export function Footer() {
           </nav>
         </div>
       </div>
-      <div aria-hidden="true" style={{ position: "relative", textAlign: "center", fontWeight: 700, fontSize: "clamp(72px, 17.5vw, 260px)", lineHeight: 0.8, letterSpacing: "-.065em", marginBottom: "-.06em", background: "linear-gradient(180deg, #24262E, rgba(36,38,46,0) 85%)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", userSelect: "none", whiteSpace: "nowrap" }}>
+      <div aria-hidden="true" style={{ position: "relative", pointerEvents: "none", textAlign: "center", fontWeight: 700, fontSize: "clamp(72px, 17.5vw, 260px)", lineHeight: 0.8, letterSpacing: "-.065em", marginBottom: "-.06em", background: "linear-gradient(180deg, #24262E, rgba(36,38,46,0) 85%)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent", userSelect: "none", whiteSpace: "nowrap" }}>
         RankMonk
       </div>
     </footer>

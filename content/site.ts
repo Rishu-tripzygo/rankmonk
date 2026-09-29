@@ -56,13 +56,14 @@ export const pricingFaqs: [string, string][] = [
   ["Do you offer pricing for large networks?", "Yes. Enterprise pricing depends on the number of locations. Book a demo for a quote."],
 ];
 
-export const blogCategories = ["All", "Local SEO", "Google Business Profile", "Reviews", "AI search", "Multi-location"];
+export const blogCategories = ["All", "Local SEO", "Google Business Profile", "Reviews", "AI search", "Multi-location"] as const;
 
-export const blogPosts: { cat: string; title: string; dek: string; ink: string; image: string }[] = [
-  { cat: "Local SEO", title: "How geo-grid tracking shows what a single rank check hides", dek: "Why your rank changes a few streets away, and how to read a grid.", ink: "#E8490F", image: "blog-geo-grid" },
-  { cat: "Google Business Profile", title: "The Google Business Profile checklist for 2026", dek: "Every field that affects local rank, in order of impact.", ink: "#067647", image: "blog-gbp-checklist" },
-  { cat: "Google Business Profile", title: "Why profiles get suspended, and how to avoid it", dek: "The common triggers and what to do if it happens.", ink: "#B42318", image: "blog-suspensions" },
-  { cat: "Reviews", title: "Replying to negative reviews: examples that work", dek: "How to answer criticism in a way future customers trust.", ink: "#B54708", image: "blog-negative-reviews" },
-  { cat: "AI search", title: "How ChatGPT and Gemini choose which local businesses to recommend", dek: "What we know about the signals AI assistants rely on.", ink: "#14151A", image: "blog-ai-search" },
-  { cat: "Multi-location", title: "Keeping 100 locations consistent: a playbook for brands", dek: "Processes and tools to stop details drifting apart.", ink: "#3538CD", image: "blog-multi-location" },
-];
+// Card styling per category (from the design reference). Used for the category
+// chip and as the cover when a post has no image.
+export const blogCategoryStyle: Record<string, { tint: string; ink: string; mark: string }> = {
+  "Local SEO": { tint: "#FFF1EA", ink: "#E8490F", mark: "7×7" },
+  "Google Business Profile": { tint: "#ECFDF3", ink: "#067647", mark: "GBP" },
+  Reviews: { tint: "#FFFAEB", ink: "#B54708", mark: "★" },
+  "AI search": { tint: "#F2F3F5", ink: "#14151A", mark: "AI" },
+  "Multi-location": { tint: "#EEF4FF", ink: "#3538CD", mark: "100" },
+};

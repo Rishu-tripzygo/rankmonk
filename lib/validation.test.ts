@@ -32,3 +32,19 @@ test("rateLimit allows N hits per window then blocks", () => {
   for (let i = 0; i < 3; i++) assert.equal(rateLimit(key, 3, 60_000), true);
   assert.equal(rateLimit(key, 3, 60_000), false);
 });
+
+test("blog markdown neutralises HTML and unsafe links", async () => {
+  const { renderMarkdown, parsePostInput, slugify } = await import("./blog.ts");
+  const html = renderMarkdown('# Title\n\n<script>alert(1)</script>\n\n[x](javascript:alert(1)) [ok](/pricing) ![a](https://evil.com/x.png)');
+  assert.ok(!html.includes("<script>"));
+  assert.ok(!html.includes("javascript:"));
+  assert.ok(!html.includes("evil.com"));
+  assert.ok(html.includes('<h2 id="title">'));
+  assert.ok(html.includes('href="/pricing"'));
+  assert.equal(slugify("Google Business Profile: 2026 Checklist & Tips"), "google-business-profile-2026-checklist-and-tips");
+  const bad = parsePostInput({ title: "short", category: "Nope" }, false);
+  assert.equal(bad.ok, false);
+  const good = parsePostInput({ title: "A proper title for a post", description: "d".repeat(80), content: "word ".repeat(300), category: "Local SEO", cover_image_url: "/images/blog-geo-grid.jpg", cover_image_alt: "Map" }, false);
+  assert.equal(good.ok, true);
+  if (good.ok) assert.equal(good.row.slug, "a-proper-title-for-a-post");
+});

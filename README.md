@@ -10,9 +10,9 @@ The design source of truth is the handoff in [`design_handoff_rankmonk_website/`
 - Plain CSS with design tokens (`app/globals.css`) plus inline styles. No UI or CSS framework.
 - `next/font` (Geist, Geist Mono), `next/image` (self-hosted photos in `public/images`)
 - Route handlers for the two backend needs (demo form, newsletter). Submissions are appended to a Google Sheet through a Google Apps Script web app (`integrations/google-sheets/Code.gs`).
-- No database. Nothing on the site needs one.
+- **Supabase** (Postgres) for blog posts only, accessed server-side over its REST API (no SDK). Everything else is static content in the repo.
 
-The only runtime dependencies are `next`, `react` and `react-dom`.
+Runtime dependencies: `next`, `react`, `react-dom` and `marked` (Markdown for blog posts).
 
 ### Why no Express server?
 
@@ -28,13 +28,16 @@ app/                  Routes (App Router)
   pricing/ about/ contact/ blog/ privacy/ terms/ cookies/
   api/contact/        POST: demo request → Google Sheet tab "Demo requests"
   api/newsletter/     POST: newsletter signup → Google Sheet tab "Newsletter"
+  api/blog/posts/     Blog API (public reads, token-protected writes)
+  blog/[slug]/        Article pages (ISR)   blog/sitemap.xml  Post sitemap
   sitemap.ts robots.ts manifest.ts llms.txt/ og.png/ icon.svg apple-icon.tsx
   not-found.tsx error.tsx global-error.tsx
 components/           UI (Header, Footer, FeatureGrid, ProductDemo, ProductMock, …)
 content/              Typed page content from the design reference (features, groups, legal, site)
 config/site.ts        All environment-driven configuration, validated at build time
 lib/                  SEO/JSON-LD helpers, validation, Google Sheets, rate limit, analytics
-integrations/         Apps Script to paste into the Google Sheet
+integrations/         Apps Script for the Google Sheet; blog editorial guidelines
+supabase/migrations/  Database schema (blog_posts)
 public/images, tiles  Photos (Unsplash) and map tiles (Esri), self-hosted
 ```
 
@@ -72,6 +75,7 @@ Every variable is documented in [`.env.example`](.env.example). The final SEO co
 | Public contact | `PUBLIC_EMAIL`, `PUBLIC_PHONE` | Shown in header, footer, legal pages and schema |
 | Google Sheets (secret) | `GOOGLE_SHEETS_WEBHOOK_URL`, `GOOGLE_SHEETS_SECRET` | Server-only; never sent to the browser |
 | Social | `LINKEDIN_URL`, `INSTAGRAM_URL`, `FACEBOOK_URL` | Used only in Organization `sameAs` |
+| Blog (secret) | `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `BLOG_API_TOKEN` | Server-only. Without Supabase the blog shows an empty state |
 
 No `NEXT_PUBLIC_` variables are needed. Server components read the config and pass the GA4 ID down as a prop. Pages are static, so **changing a variable needs a redeploy**.
 
@@ -143,6 +147,75 @@ Submissions are saved to one Google Sheet: demo requests in a **Demo requests** 
 
 Until both variables are set, the forms show a clear error with the phone number instead of pretending to succeed.
 
+## Blog
+
+Posts live in Supabase and are written in Markdown. The blog index, each article, `/blog/sitemap.xml` and `/llms.txt` are cached (ISR) and refreshed **immediately** when a post is created, updated or deleted through the API, and at least hourly otherwise. Articles get `BlogPosting` + `BreadcrumbList` structured data, Open Graph `article` metadata, a table of contents, related posts and a demo CTA.
+
+### Database setup (once)
+
+1. Supabase → **SQL Editor** → paste [`supabase/migrations/0001_blog_posts.sql`](supabase/migrations/0001_blog_posts.sql) → **Run**.
+2. Supabase → **Settings → API**: copy the Project URL into `SUPABASE_URL` and the `service_role` (or `sb_secret_…`) key into `SUPABASE_SERVICE_ROLE_KEY`.
+3. Set `BLOG_API_TOKEN` to a random string of at least 32 characters (`openssl rand -base64 32`). Add all three to Vercel and redeploy.
+
+Row-level security is enabled with no policies, so the public anon key cannot read or write the table; only the server (service key) can.
+
+### Blog API
+
+Base URL: `https://rankmonk.io/api/blog/posts`. Write calls need `Authorization: Bearer <BLOG_API_TOKEN>` and `Content-Type: application/json`.
+
+| Method & path | Auth | Purpose |
+|---|---|---|
+| `GET /api/blog/posts?category=&limit=20&offset=0` | none | Published posts (without content), newest first |
+| `GET /api/blog/posts?status=draft\|published\|all` | token | Every post including drafts |
+| `GET /api/blog/posts/:slug` | none / token | One published post with content (drafts with token) |
+| `POST /api/blog/posts` | token | Create. Publishes immediately unless `status: "draft"` or a future `published_at` |
+| `PATCH /api/blog/posts/:slug` | token | Update any fields (e.g. `{"status":"published"}`) |
+| `DELETE /api/blog/posts/:slug` | token | Delete permanently |
+
+**Create payload**
+
+```json
+{
+  "title": "How to Rank Higher on Google Maps: A Practical Guide",
+  "slug": "how-to-rank-higher-on-google-maps",
+  "description": "140–160 character summary used as the meta description and card text.",
+  "content": "Markdown body. Start with the intro paragraph; use ## for sections…",
+  "category": "Local SEO",
+  "tags": ["Google Maps", "Reviews"],
+  "keywords": ["how to rank higher on google maps", "google maps ranking"],
+  "cover_image_url": "/images/blog-geo-grid.jpg",
+  "cover_image_alt": "Butcher shop owner standing in the doorway of his shop",
+  "author_name": "RankMonk Team",
+  "status": "published",
+  "published_at": "2026-09-30T04:30:00Z"
+}
+```
+
+| Field | Rules |
+|---|---|
+| `title` | required, 10–120 chars |
+| `slug` | optional (generated from title), lowercase-hyphenated, unique |
+| `description` | required, 50–200 chars |
+| `content` | required, Markdown, 300–100,000 chars. Raw HTML is shown as text; `#` headings become H2 (the title is the page H1) |
+| `category` | required: `Local SEO`, `Google Business Profile`, `Reviews`, `AI search`, `Multi-location` |
+| `tags` / `keywords` | optional string arrays (max 8 / 12) |
+| `cover_image_url` | optional: a site photo (`/images/*.jpg`, see the catalogue in `integrations/blog-routine/GUIDELINES.md`) or an https Supabase Storage public URL; requires `cover_image_alt` |
+| `author_name` | optional, default "RankMonk Team" |
+| `status` | `published` (default) or `draft` |
+| `published_at` | optional ISO date; a future date schedules the post |
+
+Responses: `201 {"post": {..., "url": "https://rankmonk.io/blog/<slug>"}}`, `401` bad token, `409` slug exists, `422 {"error", "fields": {...}}` validation errors, `503` blog not configured.
+
+```bash
+curl -X POST https://rankmonk.io/api/blog/posts \
+  -H "Authorization: Bearer $BLOG_API_TOKEN" -H "Content-Type: application/json" \
+  --data @post.json
+```
+
+### Daily publishing routine
+
+A Claude Code cloud routine publishes one post every day at **10:00 IST** (04:30 UTC). It clones this repo, reads [`integrations/blog-routine/GUIDELINES.md`](integrations/blog-routine/GUIDELINES.md) (topics, keywords, quality rules, cover images), checks existing posts to avoid repeats, writes the article and publishes it through the API. Edit the guidelines file to steer topics; manage or pause the routine at https://claude.ai/code/routines.
+
 ## Backend and API security
 
 `POST /api/contact` and `POST /api/newsletter`:
@@ -153,6 +226,7 @@ Until both variables are set, the forms show a clear error with the phone number
 - Generic error messages only: no stack traces or provider details in responses. Failures are logged server-side (Vercel function logs).
 - The Apps Script URL and secret stay on the server; the browser only talks to `/api/*`.
 - Responses are `no-store` and `noindex`
+- Blog writes require the Bearer token (constant-time comparison) and are rate limited; post bodies up to 256 KB
 
 Site-wide headers (`next.config.ts`): CSP in production, HSTS, `X-Frame-Options: SAMEORIGIN`, `nosniff`, `Referrer-Policy`, `Permissions-Policy` and `COOP`, with `X-Powered-By` removed.
 
@@ -172,7 +246,6 @@ Site-wide headers (`next.config.ts`): CSP in production, HSTS, `X-Frame-Options:
 
 1. Legal review of the Privacy Policy, Terms and Cookie Policy (`content/legal.ts`).
 2. Client confirmation of final pricing (`content/site.ts` → `plans`, `compareRows`).
-3. Blog posts: cards currently say "Coming soon". Build post pages when content exists; the sitemap picks them up.
 4. Real photos, customer logos and testimonials. None are shown because none were supplied, and none were invented.
 5. Map tile licence (see above).
 6. Production values in Vercel: Google Sheets URL and secret (GA4 and Search Console values are ready in `.env`).

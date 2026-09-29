@@ -17,6 +17,11 @@ export function Header({ dashboardUrl }: { dashboardUrl: string }) {
   const [pv, setPv] = useState(0);
   const [mobile, setMobile] = useState(false);
   const ref = useRef<HTMLElement>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const cancelClose = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = null;
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -37,25 +42,34 @@ export function Header({ dashboardUrl }: { dashboardUrl: string }) {
     window.addEventListener("keydown", onKey);
     document.addEventListener("pointerdown", onDown);
     return () => {
+      if (closeTimer.current) clearTimeout(closeTimer.current);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("keydown", onKey);
       document.removeEventListener("pointerdown", onDown);
     };
   }, []);
 
-  const hover = (k: Menu) => (e: React.SyntheticEvent<HTMLElement>) => {
+  const keyOf = (el: HTMLElement) => (el.dataset.menu || null) as Menu;
+  const onHover = (e: React.SyntheticEvent<HTMLElement>) => {
     const t = e.currentTarget;
-    setMenu(k);
+    cancelClose();
+    setMenu(keyOf(t));
     setInd({ x: t.offsetLeft, w: t.offsetWidth, o: 1 });
   };
-  const toggle = (k: Menu) => (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
     const t = e.currentTarget;
+    const k = keyOf(t);
     setMenu((m) => (m === k ? null : k));
     setInd({ x: t.offsetLeft, w: t.offsetWidth, o: 1 });
   };
+  // Close after a short grace period so moving the pointer towards a menu
+  // (or briefly outside it) doesn't dismiss it; re-entering cancels.
   const close = () => {
-    setMenu(null);
-    setInd((i) => ({ ...i, o: 0 }));
+    cancelClose();
+    closeTimer.current = setTimeout(() => {
+      setMenu(null);
+      setInd((i) => ({ ...i, o: 0 }));
+    }, 300);
   };
   // Any link click inside the header closes open menus (covers client-side navigation).
   const onClick = (e: React.MouseEvent) => {
@@ -67,14 +81,14 @@ export function Header({ dashboardUrl }: { dashboardUrl: string }) {
 
   const preview = features[pv];
   const navBtn = (k: Exclude<Menu, null>, label: string) => (
-    <button type="button" className="nav-item" aria-expanded={menu === k} aria-controls={`mega-${k}`} onMouseEnter={hover(k)} onClick={toggle(k)}>
+    <button type="button" className="nav-item" aria-expanded={menu === k} aria-controls={`mega-${k}`} data-menu={k} onMouseEnter={onHover} onClick={onToggle}>
       {label}
       <Glyph name="chevronDown" size={13} />
     </button>
   );
 
   return (
-    <header ref={ref} className="hdr" data-scrolled={scrolled} onMouseLeave={close} onClick={onClick}>
+    <header ref={ref} className="hdr" data-scrolled={scrolled} onMouseLeave={close} onMouseEnter={cancelClose} onClick={onClick}>
       <div className="hdr-bar">
         <Link href="/" className="logo" aria-label="RankMonk home">
           <LogoMark />
@@ -85,7 +99,7 @@ export function Header({ dashboardUrl }: { dashboardUrl: string }) {
           <span className="nav-ind" style={{ left: ind.x, width: ind.w, opacity: ind.o }} />
           {navBtn("p", "Product")}
           {navBtn("s", "Solutions")}
-          <Link href="/pricing" className="nav-item" onMouseEnter={hover(null)}>
+          <Link href="/pricing" className="nav-item" onMouseEnter={onHover}>
             Pricing
           </Link>
           {navBtn("r", "Resources")}
@@ -192,7 +206,7 @@ export function Header({ dashboardUrl }: { dashboardUrl: string }) {
                 <span aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,.05), rgba(10,10,14,.85))" }} />
                 <span style={{ position: "absolute", left: 18, right: 18, bottom: 16 }}>
                   <span style={{ display: "inline-block", fontSize: 11.5, fontWeight: 600, background: "var(--brand)", padding: "3px 8px", borderRadius: 6 }}>From the blog</span>
-                  <span style={{ display: "block", marginTop: 8, fontSize: 17, fontWeight: 600, lineHeight: 1.3 }}>How ChatGPT and Gemini choose which local businesses to recommend</span>
+                  <span style={{ display: "block", marginTop: 8, fontSize: 17, fontWeight: 600, lineHeight: 1.3 }}>Local search, explained: guides on Maps rank, reviews and AI search</span>
                 </span>
               </Link>
               <div style={{ display: "flex", flexDirection: "column", gap: 2, padding: 4 }}>

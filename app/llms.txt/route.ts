@@ -2,13 +2,14 @@ import { absoluteUrl, address, site } from "@/config/site";
 import { featureHref, features } from "@/content/features";
 import { industries, industryHref, solutionHref, solutions } from "@/content/groups";
 import { legalDocs } from "@/content/legal";
+import { listPublished, type BlogPostSummary } from "@/lib/blog";
 import { homeFaqs, plans, platforms, pricingFaqs } from "@/content/site";
 
-export const dynamic = "force-static";
+export const revalidate = 3600;
 
 // Plain-text site summary for AI assistants (llmstxt.org format). Generated from
 // the same content files as the pages, so it always matches the website.
-function build(): string {
+function build(posts: BlogPostSummary[]): string {
   const inr = (v: number) => `₹${v.toLocaleString("en-IN")}`;
   const link = (title: string, path: string, desc: string) => `- [${title}](${absoluteUrl(path)}): ${desc}`;
   return [
@@ -48,15 +49,16 @@ function build(): string {
     "## Frequently asked questions",
     ...[...homeFaqs, ...pricingFaqs].map(([q, a]) => `- ${q} ${a}`),
     "",
+    ...(posts.length ? ["## Latest articles", ...posts.map((p) => link(p.title, `/blog/${p.slug}`, p.description)), ""] : []),
     "## Company and legal",
     link("About", "/about", "Why RankMonk was built and how the team works with customers."),
     link("Book a demo", "/contact", "Demo request form and phone number."),
-    link("Blog", "/blog", "Guides on local SEO, Google Business Profiles, reviews and AI search (posts coming soon)."),
+    link("Blog", "/blog", "Guides on local SEO, Google Business Profiles, reviews and AI search."),
     ...legalDocs.map((d) => link(d.title, `/${d.slug}`, d.description)),
     "",
   ].join("\n");
 }
 
-export function GET() {
-  return new Response(build(), { headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=3600" } });
+export async function GET() {
+  return new Response(build(await listPublished({ limit: 30 })), { headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=3600" } });
 }

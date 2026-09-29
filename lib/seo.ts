@@ -9,13 +9,18 @@ type PageMeta = {
   path: string;
   keywords?: string[];
   noindex?: boolean;
+  /** Absolute URL or site path of a page-specific sharing image (defaults to OG_IMAGE). */
+  image?: string;
+  imageAlt?: string;
+  article?: { publishedTime?: string; modifiedTime?: string; section?: string; tags?: string[]; authors?: string[] };
 };
 
 /** Per-page metadata: unique title/description, canonical, Open Graph, Twitter, robots. */
-export function pageMetadata({ title, description, path, keywords, noindex }: PageMeta): Metadata {
+export function pageMetadata({ title, description, path, keywords, noindex, image, imageAlt, article }: PageMeta): Metadata {
   const fullTitle = title ? `${title} · ${site.name}` : site.seo.defaultTitle;
   const url = absoluteUrl(path);
   const index = site.seo.index && !noindex;
+  const img = absoluteUrl(image ?? site.seo.ogImage);
   return {
     title: title ? { absolute: fullTitle } : { absolute: site.seo.defaultTitle },
     description,
@@ -23,16 +28,16 @@ export function pageMetadata({ title, description, path, keywords, noindex }: Pa
     alternates: { canonical: url },
     robots: { index, follow: site.seo.follow, googleBot: { index, follow: site.seo.follow, "max-image-preview": "large", "max-snippet": -1 } },
     openGraph: {
-      type: "website",
+      ...(article ? { type: "article" as const, ...article } : { type: "website" as const }),
       siteName: site.name,
       locale: site.locale,
       url,
       title: fullTitle,
       description,
-      images: [{ url: absoluteUrl(site.seo.ogImage), width: 1200, height: 630, alt: `${site.name}: local SEO and AI search visibility` }],
+      images: [image ? { url: img, alt: imageAlt ?? fullTitle } : { url: img, width: 1200, height: 630, alt: `${site.name}: local SEO and AI search visibility` }],
     },
     // X/Twitter link previews reuse the Open Graph image.
-    twitter: { card: "summary_large_image", title: fullTitle, description, images: [absoluteUrl(site.seo.ogImage)] },
+    twitter: { card: "summary_large_image", title: fullTitle, description, images: [img] },
   };
 }
 
