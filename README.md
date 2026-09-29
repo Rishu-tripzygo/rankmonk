@@ -9,14 +9,14 @@ The design source of truth is the handoff in [`design_handoff_rankmonk_website/`
 - **Next.js 16** (App Router, React Server Components, static generation) + **React 19** + **TypeScript**
 - Plain CSS with design tokens (`app/globals.css`) plus inline styles. No UI or CSS framework.
 - `next/font` (Geist, Geist Mono), `next/image` (self-hosted photos in `public/images`)
-- Route handlers for the two backend needs (demo form, newsletter). Email goes through the Resend HTTP API.
+- Route handlers for the two backend needs (demo form, newsletter). Submissions are appended to a Google Sheet through a Google Apps Script web app (`integrations/google-sheets/Code.gs`).
 - No database. Nothing on the site needs one.
 
 The only runtime dependencies are `next`, `react` and `react-dom`.
 
 ### Why no Express server?
 
-The site's backend is two small form endpoints. Next.js route handlers run as Vercel serverless functions. They cover validation, rate limiting and email with no extra infrastructure. A persistent Express server doesn't fit Vercel's model, and wrapping one inside a function would add a dependency and a second routing layer for no benefit. If a real API is needed later (for example a shared backend with the dashboard), it should be its own service.
+The site's backend is two small form endpoints. Next.js route handlers run as Vercel serverless functions. They cover validation, rate limiting and saving to Google Sheets with no extra infrastructure. A persistent Express server doesn't fit Vercel's model, and wrapping one inside a function would add a dependency and a second routing layer for no benefit. If a real API is needed later (for example a shared backend with the dashboard), it should be its own service.
 
 ## Project structure
 
@@ -26,14 +26,15 @@ app/                  Routes (App Router)
   features/           /features and /features/[slug] (9 pages)
   solutions/[slug]/   3 pages      industries/[slug]/  10 pages
   pricing/ about/ contact/ blog/ privacy/ terms/ cookies/
-  api/contact/        POST: demo request → email
-  api/newsletter/     POST: newsletter signup → Resend audience or email
+  api/contact/        POST: demo request → Google Sheet tab "Demo requests"
+  api/newsletter/     POST: newsletter signup → Google Sheet tab "Newsletter"
   sitemap.ts robots.ts manifest.ts llms.txt/ og.png/ icon.svg apple-icon.tsx
   not-found.tsx error.tsx global-error.tsx
 components/           UI (Header, Footer, FeatureGrid, ProductDemo, ProductMock, …)
 content/              Typed page content from the design reference (features, groups, legal, site)
 config/site.ts        All environment-driven configuration, validated at build time
-lib/                  SEO/JSON-LD helpers, validation, email, rate limit, analytics
+lib/                  SEO/JSON-LD helpers, validation, Google Sheets, rate limit, analytics
+integrations/         Apps Script to paste into the Google Sheet
 public/images, tiles  Photos (Unsplash) and map tiles (Esri), self-hosted
 ```
 
@@ -61,23 +62,23 @@ npm run dev                  # http://localhost:3000
 
 ## Environment variables
 
-Every variable is documented in [`.env.example`](.env.example). All are optional: without any of them the site builds and runs with the reference defaults (`https://rankmonk.io`, contact details, etc.). `config/site.ts` validates URLs and fails the build on malformed values.
+Every variable is documented in [`.env.example`](.env.example). The final SEO copy (title, description, keywords, OG image) is also the built-in default, so the site is correct even if those aren't set. The forms need the two Google Sheets variables. `config/site.ts` validates URLs and fails the build on malformed values.
 
 | Group | Variables | Notes |
 |---|---|---|
 | Site | `SITE_URL`, `SITE_NAME`, `SITE_DESCRIPTION`, `SITE_LOCALE`, `SITE_LANGUAGE`, `DASHBOARD_URL` | `SITE_URL` is the canonical origin for every URL the site emits |
-| SEO | `DEFAULT_TITLE`, `DEFAULT_DESCRIPTION`, `DEFAULT_KEYWORDS`, `OG_IMAGE`, `TWITTER_IMAGE`, `TWITTER_HANDLE`, `ROBOTS_INDEX`, `ROBOTS_FOLLOW` | Preview deployments are always `noindex` |
+| SEO | `DEFAULT_TITLE`, `DEFAULT_DESCRIPTION`, `DEFAULT_KEYWORDS`, `OG_IMAGE`, `ROBOTS_INDEX`, `ROBOTS_FOLLOW` | `OG_IMAGE` is also used for X/Twitter previews. Preview deployments are always `noindex` |
 | Google | `GA4_MEASUREMENT_ID`, `GOOGLE_SEARCH_CONSOLE_VERIFICATION` | Public by nature (rendered into HTML) |
 | Public contact | `PUBLIC_EMAIL`, `PUBLIC_PHONE` | Shown in header, footer, legal pages and schema |
-| Email (secret) | `RESEND_API_KEY`, `EMAIL_FROM`, `CONTACT_EMAIL`, `EMAIL_REPLY_TO`, `RESEND_AUDIENCE_ID` | Server-only; never sent to the browser |
-| Social | `LINKEDIN_URL`, `TWITTER_URL`, `INSTAGRAM_URL`, `FACEBOOK_URL`, `YOUTUBE_URL` | Used only in Organization `sameAs` |
+| Google Sheets (secret) | `GOOGLE_SHEETS_WEBHOOK_URL`, `GOOGLE_SHEETS_SECRET` | Server-only; never sent to the browser |
+| Social | `LINKEDIN_URL`, `INSTAGRAM_URL`, `FACEBOOK_URL` | Used only in Organization `sameAs` |
 
 No `NEXT_PUBLIC_` variables are needed. Server components read the config and pass the GA4 ID down as a prop. Pages are static, so **changing a variable needs a redeploy**.
 
 ## Deployment (Vercel)
 
 1. Import `https://github.com/Rishu-tripzygo/rankmonk` in Vercel. The framework (Next.js), build command (`next build`) and output are detected automatically. No `vercel.json` is needed.
-2. Add the environment variables (at minimum `SITE_URL=https://rankmonk.io` and the email variables) for **Production**. Preview deployments inherit them and are forced to `noindex`.
+2. Add the environment variables for **Production**: at minimum `SITE_URL`, `GA4_MEASUREMENT_ID`, `GOOGLE_SEARCH_CONSOLE_VERIFICATION`, `GOOGLE_SHEETS_WEBHOOK_URL` and `GOOGLE_SHEETS_SECRET`. The easiest way is to copy them from your local `.env` (Vercel → Settings → Environment Variables → paste `.env` contents). Preview deployments are forced to `noindex`.
 3. Deploy. All pages are prerendered. Only `/api/contact` and `/api/newsletter` run as functions (Node.js runtime).
 
 ### Domain setup for rankmonk.io
@@ -127,13 +128,20 @@ URLs are never rewritten, so UTM parameters stay in the address bar and GA4 read
 - **Crawlability**: all content, including FAQ answers (native `<details>`) and navigation, is in the server-rendered HTML. The product demo and mocks are illustrative extras.
 - **URLs**: no trailing slashes (`/pricing/` → 308 `/pricing`). `/solutions` and `/industries` redirect (307) to their first page. Unknown URLs return a real 404.
 
-## Email setup (demo form and newsletter)
+## Google Sheets setup (demo form and newsletter)
 
-1. Create a [Resend](https://resend.com) account, verify the `rankmonk.io` sending domain (DNS records), and create an API key.
-2. Set `RESEND_API_KEY`, `EMAIL_FROM` (e.g. `RankMonk <hello@rankmonk.io>`) and `CONTACT_EMAIL` (the sales inbox).
-3. Optional: set `RESEND_AUDIENCE_ID` to collect newsletter subscribers in a Resend audience. Without it, each signup is emailed to `CONTACT_EMAIL`.
+Submissions are saved to one Google Sheet: demo requests in a **Demo requests** tab (Submitted at, Name, Work email, Phone, Company, Locations, Message, UTM fields, Landing page) and newsletter emails in a **Newsletter** tab (Submitted at, Email, Source; duplicates are skipped). Tabs and header rows are created automatically on the first submission.
 
-Until these are set, the forms show a clear error with the phone number instead of pretending to succeed.
+1. Create a Google Sheet (e.g. "RankMonk website leads") in the Google account that should own the data.
+2. In the sheet: **Extensions → Apps Script**. Delete the sample code and paste the contents of [`integrations/google-sheets/Code.gs`](integrations/google-sheets/Code.gs). Save.
+3. **Project Settings (gear icon) → Script properties → Add property**: name `SECRET`, value = the same long random string you put in `GOOGLE_SHEETS_SECRET` (a local `.env` already contains a generated one).
+4. **Deploy → New deployment → Select type: Web app**. Description "website", **Execute as: Me**, **Who has access: Anyone**. Deploy and authorise the permissions prompt (Advanced → Go to project → Allow).
+5. Copy the **Web app URL** (ends in `/exec`) into `GOOGLE_SHEETS_WEBHOOK_URL`, in Vercel and your local `.env`. Redeploy the site.
+6. Submit the demo form once on the live site and check that a row appears.
+
+"Anyone" access is required so the website's server can call the script. Requests without the matching secret are rejected, and values starting with `=`, `+`, `-` or `@` are stored as plain text to prevent formula injection. If you edit `Code.gs` later, use **Deploy → Manage deployments → Edit → New version**, which keeps the same URL.
+
+Until both variables are set, the forms show a clear error with the phone number instead of pretending to succeed.
 
 ## Backend and API security
 
@@ -141,8 +149,9 @@ Until these are set, the forms show a clear error with the phone number instead 
 
 - JSON only, 16 KB body limit, `Origin` must match the site (blocks cross-site posts)
 - Shared validation with the browser form (`lib/validation.ts`), server-side sanitisation (control characters stripped, lengths capped), HTML-escaped email bodies
-- Honeypot field for bots, and a per-IP rate limit of 5 requests per 10 minutes. The limiter is in-memory per function instance; move it to Vercel KV or Upstash if abuse appears.
-- Generic error messages only: no stack traces or provider details in responses. Failures are logged server-side.
+- Honeypot field for bots (bot submissions are dropped, never written to the sheet), and a per-IP rate limit of 5 requests per 10 minutes. The limiter is in-memory per function instance; move it to Vercel KV or Upstash if abuse appears.
+- Generic error messages only: no stack traces or provider details in responses. Failures are logged server-side (Vercel function logs).
+- The Apps Script URL and secret stay on the server; the browser only talks to `/api/*`.
 - Responses are `no-store` and `noindex`
 
 Site-wide headers (`next.config.ts`): CSP in production, HSTS, `X-Frame-Options: SAMEORIGIN`, `nosniff`, `Referrer-Policy`, `Permissions-Policy` and `COOP`, with `X-Powered-By` removed.
@@ -166,11 +175,12 @@ Site-wide headers (`next.config.ts`): CSP in production, HSTS, `X-Frame-Options:
 3. Blog posts: cards currently say "Coming soon". Build post pages when content exists; the sitemap picks them up.
 4. Real photos, customer logos and testimonials. None are shown because none were supplied, and none were invented.
 5. Map tile licence (see above).
-6. Production values: `GA4_MEASUREMENT_ID`, `GOOGLE_SEARCH_CONSOLE_VERIFICATION`, Resend credentials.
+6. Production values in Vercel: Google Sheets URL and secret (GA4 and Search Console values are ready in `.env`).
+7. The legal pages name `legal@rankmonk.io` as the legal/grievance contact while the site's public email is `info@rankmonk.io`. Confirm both mailboxes exist.
 
 ## Troubleshooting
 
-- **Form says "We couldn't send your request"**: the email variables are missing or Resend rejected the send. Check the function logs in Vercel.
+- **Form says "We couldn't send your request"**: `GOOGLE_SHEETS_WEBHOOK_URL`/`GOOGLE_SHEETS_SECRET` are missing, the secret doesn't match the `SECRET` script property (log shows `unauthorized`), or the Apps Script deployment isn't set to "Anyone". Check the Vercel function logs.
 - **Canonical/OG URLs show the wrong domain**: set `SITE_URL` and redeploy (values are baked in at build time).
 - **Site not indexed**: check `ROBOTS_INDEX` isn't `false`, and that you're not on a preview URL (always `noindex`).
 - **GA4 shows no data**: confirm `GA4_MEASUREMENT_ID` is set for Production and redeployed. Ad blockers also block gtag.

@@ -31,13 +31,8 @@ export function pageMetadata({ title, description, path, keywords, noindex }: Pa
       description,
       images: [{ url: absoluteUrl(site.seo.ogImage), width: 1200, height: 630, alt: `${site.name}: local SEO and AI search visibility` }],
     },
-    twitter: {
-      card: "summary_large_image",
-      title: fullTitle,
-      description,
-      images: [absoluteUrl(site.seo.twitterImage)],
-      ...(site.seo.twitterHandle ? { site: site.seo.twitterHandle, creator: site.seo.twitterHandle } : {}),
-    },
+    // X/Twitter link previews reuse the Open Graph image.
+    twitter: { card: "summary_large_image", title: fullTitle, description, images: [absoluteUrl(site.seo.ogImage)] },
   };
 }
 

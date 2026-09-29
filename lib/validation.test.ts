@@ -1,7 +1,7 @@
 // Run with `npm test` (Node's built-in test runner; Node strips the TS types).
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { clean, escapeHtml, parseDemo, validateDemo } from "./validation.ts";
+import { clean, parseDemo, validateDemo } from "./validation.ts";
 import { rateLimit } from "./rate-limit.ts";
 
 test("validateDemo enforces the reference rules", () => {
@@ -22,10 +22,9 @@ test("parseDemo sanitises untrusted input", () => {
   assert.equal(parseDemo({ name: "x", email: "a@b.co", phone: "<script>1234567890" }).ok, false);
 });
 
-test("clean truncates and escapeHtml escapes", () => {
+test("clean truncates and rejects non-strings", () => {
   assert.equal(clean("x".repeat(50), 10).length, 10);
   assert.equal(clean(42, 10), "");
-  assert.equal(escapeHtml(`<a href="x">'&'</a>`), "&lt;a href=&quot;x&quot;&gt;&#39;&amp;&#39;&lt;/a&gt;");
 });
 
 test("rateLimit allows N hits per window then blocks", () => {

@@ -48,28 +48,26 @@ export const site = {
   url: url("SITE_URL", "https://rankmonk.io"),
   description: str(
     "SITE_DESCRIPTION",
-    "RankMonk is a local SEO and AI search visibility platform for local businesses, multi-location brands and agencies in India.",
+    "RankMonk is a local SEO and AI search visibility platform for local businesses, multi-location brands and agencies in India. Track Google Maps rank street by street, protect Google Business Profiles, reply to reviews with AI, keep listings right on 20+ directories and see whether ChatGPT and Gemini recommend you.",
   ),
   locale: str("SITE_LOCALE", "en_IN"),
   language: str("SITE_LANGUAGE", "en-IN"),
   dashboardUrl: url("DASHBOARD_URL", "https://dashboard.rankmonk.io"),
 
   seo: {
-    defaultTitle: str("DEFAULT_TITLE", "RankMonk · Local SEO and AI search visibility"),
+    defaultTitle: str("DEFAULT_TITLE", "RankMonk: Local SEO & AI Search Visibility Platform"),
     defaultDescription: str(
       "DEFAULT_DESCRIPTION",
-      "Track your rank street by street, audit and protect Google Business Profiles, reply to reviews with AI, keep listings right on 20+ directories and see whether AI assistants recommend you.",
+      "Track Google Maps rank street by street, protect Google Business Profiles, reply to reviews with AI and see if ChatGPT and Gemini recommend you.",
     ),
     keywords: str(
       "DEFAULT_KEYWORDS",
-      "local SEO, Google Business Profile, geo-grid rank tracker, review management, listings management, AI search visibility, multi-location SEO",
+      "local SEO, local SEO software India, Google Business Profile management, geo-grid rank tracker, Google Maps ranking, review management, AI review replies, listings management, AI search visibility, ChatGPT visibility, multi-location SEO, local SEO for agencies",
     )
       .split(",")
       .map((k) => k.trim())
       .filter(Boolean),
     ogImage: str("OG_IMAGE", "/og.png"),
-    twitterImage: str("TWITTER_IMAGE", str("OG_IMAGE", "/og.png")),
-    twitterHandle: env.TWITTER_HANDLE?.trim() || undefined,
     index: !isPreview && bool("ROBOTS_INDEX", true),
     follow: !isPreview && bool("ROBOTS_FOLLOW", true),
   },
@@ -81,7 +79,7 @@ export const site = {
 
   // Public contact details shown on the site (from the design reference).
   contact: {
-    email: str("PUBLIC_EMAIL", "legal@rankmonk.io"),
+    email: str("PUBLIC_EMAIL", "info@rankmonk.io"),
     phone: str("PUBLIC_PHONE", "+91 88717 19169"),
     locality: "Gurugram",
     region: "Haryana",
@@ -92,10 +90,8 @@ export const site = {
 
   social: [
     optionalUrl("LINKEDIN_URL"),
-    optionalUrl("TWITTER_URL"),
     optionalUrl("INSTAGRAM_URL"),
     optionalUrl("FACEBOOK_URL"),
-    optionalUrl("YOUTUBE_URL"),
   ].filter((v): v is string => Boolean(v)),
 } as const;
 

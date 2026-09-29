@@ -4,7 +4,7 @@ import { site } from "@/config/site";
 
 export const dynamic = "force-static";
 
-// Default Open Graph / Twitter image (1200×630). Override with OG_IMAGE / TWITTER_IMAGE.
+// Default Open Graph image (1200×630), also used for X/Twitter previews. Override with OG_IMAGE.
 export function GET() {
   return new ImageResponse(
     (
