@@ -54,6 +54,17 @@ Seasonal hooks for India are good when timely (festival hours, admission season 
 - No filler intro. Open with the reader's problem or the answer in the first two sentences.
 - Length: 1,300–2,200 words. Longer only if the topic needs it.
 
+## Accuracy checklist (mandatory before publishing)
+
+Wrong advice does more damage than no article. Before publishing:
+
+1. List every factual or procedural claim in the draft: steps in a Google process, time limits, what Google allows or forbids, what affects ranking, what happens after an action.
+2. For each one, open the official source with WebFetch (Google Business Profile Help, Maps user-contributed content policy, Google Search Central) and confirm the page actually says it. Link the most important source in the article.
+3. If a claim is not on an official page, either remove it or reword it as clearly general advice ("in our experience…", "a common cause is…"). Never present industry slang as Google's own terms (for example "soft suspension" is not a Google term).
+4. Never advise against something Google's help pages tell people to do. Example: Google asks you to fix guideline problems on a suspended profile before appealing, so an article must not say "stop editing".
+5. Do not promise outcomes Google does not promise (timelines, reinstatement, ranking recovery, "no penalty").
+6. Things Google has confirmed recently (re-check each time, wording changes): local results are based on relevance, distance and popularity; more reviews and positive ratings can help local ranking; there is no way to pay for a better local ranking; incentives for reviews, review gating and conflict-of-interest reviews are prohibited; the reinstatement evidence form must be submitted within 60 minutes of opening it.
+
 ## Structure (Markdown)
 
 - Do **not** include the title as a `#` heading (the page adds it). Start with the intro paragraph.
