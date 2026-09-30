@@ -8,7 +8,6 @@ export function revalidateBlog(...slugs: string[]) {
   revalidateTag(BLOG_TAG, { expire: 0 });
   for (const s of new Set(slugs)) revalidatePath(`/blog/${s}`);
   revalidatePath("/blog");
-  revalidatePath("/blog/sitemap.xml");
   revalidatePath("/llms.txt");
 }
 

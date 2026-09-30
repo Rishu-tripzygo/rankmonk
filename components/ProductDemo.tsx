@@ -549,20 +549,20 @@ export function ProductDemo() {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="#14151A" aria-hidden="true"><path d="M7 4v16l13-8z" /></svg>
           )}
         </button>
-        <div style={{ flex: 1, minWidth: 0, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))", gap: 8 }}>
+        <div className="demo-chapters" style={{ flex: 1, minWidth: 0, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))", gap: 8 }}>
           {CH.map(([, label], i) => {
             const on = i === s.ch;
             const fill = s.playing ? (i < s.ch ? 1 : 0) : i < s.ch ? 1 : on ? 0.5 : 0;
             return (
-              <button key={label} type="button" aria-current={on ? "step" : undefined} onClick={() => runRef.current(i)} style={{ position: "relative", overflow: "hidden", textAlign: "left", padding: "10px 12px 12px", borderRadius: 12, border: `1px solid ${on ? "#FFB899" : "#EEF0F3"}`, background: on ? "#fff" : "#FAFAFB", font: "inherit", cursor: "pointer" }}>
+              <button key={label} type="button" aria-label={`Chapter ${i + 1}: ${label}`} aria-current={on ? "step" : undefined} onClick={() => runRef.current(i)} style={{ position: "relative", overflow: "hidden", textAlign: "left", padding: "10px 12px 12px", borderRadius: 12, border: `1px solid ${on ? "#FFB899" : "#EEF0F3"}`, background: on ? "#fff" : "#FAFAFB", font: "inherit", cursor: "pointer" }}>
                 <span className="mono" style={{ display: "block", fontSize: 11, color: "#6B6F7B" }}>0{i + 1}</span>
-                <span style={{ display: "block", fontSize: 13.5, fontWeight: 600, color: on ? "#14151A" : "#6B6F7B", whiteSpace: "nowrap" }}>{label}</span>
+                <span className="demo-ch-label" style={{ display: "block", fontSize: 13.5, fontWeight: 600, color: on ? "#14151A" : "#6B6F7B", whiteSpace: "nowrap" }}>{label}</span>
                 <span style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: 3, background: "#F2F3F5" }}><span data-chbar={i} style={{ display: "block", height: "100%", width: "100%", background: "#FF5A1F", transformOrigin: "left center", transform: `scaleX(${fill})` }} /></span>
               </button>
             );
           })}
         </div>
-        <span role="status" style={{ fontSize: 13, color: "#6B6F7B", whiteSpace: "nowrap" }}>{status}</span>
+        <span role="status" className="demo-status" style={{ fontSize: 13, color: "#6B6F7B", whiteSpace: "nowrap" }}>{status}</span>
       </div>
     </div>
   );

@@ -79,7 +79,7 @@ export const site = {
 
   // Public contact details shown on the site (from the design reference).
   contact: {
-    email: str("PUBLIC_EMAIL", "info@rankmonk.io"),
+    email: "nv@rankmonk.io",
     phone: str("PUBLIC_PHONE", "+91 88717 19169"),
     locality: "Gurugram",
     region: "Haryana",

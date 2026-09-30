@@ -22,10 +22,10 @@ export const legalDocs: LegalDoc[] = [
       ["Transfers outside India", ["Some service providers store or process data outside India. We transfer data only to countries not restricted by the Government of India, and we require the same level of protection wherever it is processed."]],
       ["How long we keep data", ["We keep personal data while your account is active and for as long as needed to provide the Services. After you close your account, we delete or anonymise your data within 90 days, unless we must keep it longer for legal, tax or accounting reasons."]],
       ["Security", ["We protect data with encryption in transit, access controls, regular backups and monitoring. No system is completely secure. If a personal data breach affects you, we will inform you and the Data Protection Board of India as the law requires."]],
-      ["Your rights", ["Subject to applicable law, you have the right to:", ["Get a summary of the personal data we hold about you and how we use it", "Correct, complete or update inaccurate data", "Ask us to erase data we no longer need", "Withdraw consent you have given", "Nominate another person to exercise your rights in the event of death or incapacity", "Raise a grievance with us and, if it is not resolved, with the Data Protection Board of India"], "To exercise these rights, email legal@rankmonk.io. We respond within 30 days."]],
+      ["Your rights", ["Subject to applicable law, you have the right to:", ["Get a summary of the personal data we hold about you and how we use it", "Correct, complete or update inaccurate data", "Ask us to erase data we no longer need", "Withdraw consent you have given", "Nominate another person to exercise your rights in the event of death or incapacity", "Raise a grievance with us and, if it is not resolved, with the Data Protection Board of India"], "To exercise these rights, email nv@rankmonk.io. We respond within 30 days."]],
       ["Children", ["The Services are meant for businesses and are not directed at anyone under 18. We do not knowingly collect personal data from children."]],
       ["Changes to this policy", ["We may update this policy from time to time. We will post the new version on this page and, for material changes, tell account holders by email."]],
-      ["Grievance Officer and contact", ["If you have a question or complaint about how we handle personal data, contact our Grievance Officer:", ["Email: legal@rankmonk.io", "Phone: +91 88717 19169", "Address: Gurugram, Haryana 122001, India"], "We acknowledge complaints within 48 hours and aim to resolve them within 30 days."]],
+      ["Grievance Officer and contact", ["If you have a question or complaint about how we handle personal data, contact our Grievance Officer:", ["Email: nv@rankmonk.io", "Phone: +91 88717 19169", "Address: Gurugram, Haryana 122001, India"], "We acknowledge complaints within 48 hours and aim to resolve them within 30 days."]],
     ],
   },
   {
@@ -48,7 +48,7 @@ export const legalDocs: LegalDoc[] = [
       ["Limitation of liability", ["To the extent the law allows, RankMonk is not liable for indirect, incidental or consequential losses, including lost profits, revenue or data. Our total liability for any claim is limited to the fees you paid us in the 12 months before the claim arose."]],
       ["Indemnity", ["You agree to indemnify RankMonk against claims arising from content you publish through the Services, or from your breach of these Terms or of platform policies."]],
       ["Governing law", ["These Terms are governed by the laws of India. The courts at Gurugram, Haryana have exclusive jurisdiction over any dispute arising from them."]],
-      ["Changes and contact", ["We may update these Terms. We will tell account holders about material changes at least 30 days before they take effect. Send questions about these Terms to legal@rankmonk.io or call +91 88717 19169."]],
+      ["Changes and contact", ["We may update these Terms. We will tell account holders about material changes at least 30 days before they take effect. Send questions about these Terms to nv@rankmonk.io or call +91 88717 19169."]],
     ],
   },
   {
@@ -62,7 +62,7 @@ export const legalDocs: LegalDoc[] = [
       ["Third-party cookies", ["Some cookies are set by service providers that help us run the site, such as analytics and advertising tools. Their use of that data is governed by their own privacy policies."]],
       ["Managing cookies", ["You can accept or reject non-essential cookies when you first visit the site. You can also block or delete cookies at any time in your browser settings. Blocking essential cookies may stop parts of the site and dashboard from working."]],
       ["How long cookies last", ["Session cookies are deleted when you close your browser. Persistent cookies last between 30 days and 13 months, depending on their purpose."]],
-      ["Changes and contact", ["We update this policy when we change how we use cookies. Send questions to legal@rankmonk.io."]],
+      ["Changes and contact", ["We update this policy when we change how we use cookies. Send questions to nv@rankmonk.io."]],
     ],
   },
 ];

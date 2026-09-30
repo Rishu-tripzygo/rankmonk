@@ -72,7 +72,7 @@ Every variable is documented in [`.env.example`](.env.example). The final SEO co
 | Site | `SITE_URL`, `SITE_NAME`, `SITE_DESCRIPTION`, `SITE_LOCALE`, `SITE_LANGUAGE`, `DASHBOARD_URL` | `SITE_URL` is the canonical origin for every URL the site emits |
 | SEO | `DEFAULT_TITLE`, `DEFAULT_DESCRIPTION`, `DEFAULT_KEYWORDS`, `OG_IMAGE`, `ROBOTS_INDEX`, `ROBOTS_FOLLOW` | `OG_IMAGE` is also used for X/Twitter previews. Preview deployments are always `noindex` |
 | Google | `GA4_MEASUREMENT_ID`, `GOOGLE_SEARCH_CONSOLE_VERIFICATION` | Public by nature (rendered into HTML) |
-| Public contact | `PUBLIC_EMAIL`, `PUBLIC_PHONE` | Shown in header, footer, legal pages and schema |
+| Public contact | `PUBLIC_PHONE` | Shown on the site and in schema. The public email (`nv@rankmonk.io`) is set in `config/site.ts` |
 | Google Sheets (secret) | `GOOGLE_SHEETS_WEBHOOK_URL`, `GOOGLE_SHEETS_SECRET` | Server-only; never sent to the browser |
 | Social | `LINKEDIN_URL`, `INSTAGRAM_URL`, `FACEBOOK_URL` | Used only in Organization `sameAs` |
 | Blog (secret) | `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `BLOG_API_TOKEN` | Server-only. Without Supabase the blog shows an empty state |
@@ -249,7 +249,6 @@ Site-wide headers (`next.config.ts`): CSP in production, HSTS, `X-Frame-Options:
 4. Real photos, customer logos and testimonials. None are shown because none were supplied, and none were invented.
 5. Map tile licence (see above).
 6. Production values in Vercel: Google Sheets URL and secret (GA4 and Search Console values are ready in `.env`).
-7. The legal pages name `legal@rankmonk.io` as the legal/grievance contact while the site's public email is `info@rankmonk.io`. Confirm both mailboxes exist.
 
 ## Troubleshooting
 

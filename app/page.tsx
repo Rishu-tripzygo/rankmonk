@@ -3,15 +3,14 @@ import Link from "next/link";
 import { CtaBand } from "@/components/CtaBand";
 import { FaqList } from "@/components/Faq";
 import { FeatureGrid } from "@/components/FeatureGrid";
-import { HeroWord } from "@/components/HeroWord";
+import { Hero } from "@/components/Hero";
 import { Glyph, Icon } from "@/components/Icon";
 import { IndustryCarousel } from "@/components/IndustryCarousel";
 import { JsonLd } from "@/components/JsonLd";
-import { ProductDemo } from "@/components/ProductDemo";
 import { ProductMock } from "@/components/ProductMock";
 import { site } from "@/config/site";
 import { imageSrc, solutionHref, solutions } from "@/content/groups";
-import { heroWords, homeFaqs, howSteps, platforms, whys } from "@/content/site";
+import { homeFaqs, howSteps, platforms, whys } from "@/content/site";
 import { faqSchema, pageMetadata, webPageSchema } from "@/lib/seo";
 import { gridVars } from "@/lib/style";
 
@@ -23,43 +22,7 @@ export default function HomePage() {
     <>
       <JsonLd data={[webPageSchema({ path: "/", title: site.seo.defaultTitle, description }), faqSchema(homeFaqs)]} />
 
-      <section style={{ position: "relative", overflow: "hidden", padding: "56px 0 80px" }}>
-        <div className="glow" aria-hidden="true" style={{ left: "50%", top: -280, width: 1100, height: 700, transform: "translateX(-50%)" }} />
-        <div className="wrap" style={{ position: "relative", textAlign: "center" }}>
-          <Link href="/features/ai-visibility" style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "6px 14px 6px 6px", borderRadius: 999, background: "#fff", border: "1px solid var(--brand-line)", fontSize: 14, boxShadow: "0 2px 8px -4px rgba(255,90,31,.3)", maxWidth: "100%" }}>
-            <span style={{ background: "var(--brand)", color: "#fff", borderRadius: 999, padding: "3px 9px", fontSize: 12, fontWeight: 600 }}>New</span>
-            <span style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>AI search visibility tracking</span>
-            <span style={{ color: "var(--brand-strong)" }} aria-hidden="true">→</span>
-          </Link>
-          <h1 className="h1-hero" style={{ margin: "28px auto 0", maxWidth: 980 }}>
-            Be the first name customers find on{" "}
-            <span style={{ display: "block", height: "1.1em", marginTop: ".04em" }}>
-              <HeroWord words={heroWords} />
-            </span>
-          </h1>
-          <p style={{ margin: "24px auto 0", maxWidth: 680, fontSize: "clamp(17px, 2vw, 20px)", lineHeight: 1.55, color: "var(--muted)" }}>
-            RankMonk tracks your rank street by street, audits and protects your Google Business Profiles, replies to reviews with AI, keeps listings right on 20+ directories and shows whether AI assistants recommend you. One dashboard for every location.
-          </p>
-          <div className="row" style={{ marginTop: 36, justifyContent: "center", gap: 12 }}>
-            <Link href="/contact" className="btn btn-lg btn-primary" data-cta="hero_demo">
-              Book a demo
-              <Glyph name="arrowRight" size={16} />
-            </Link>
-            <Link href="/features" className="btn btn-lg btn-light" style={{ padding: "0 24px" }} data-cta="hero_features">
-              Explore features
-            </Link>
-          </div>
-          <p style={{ margin: "18px 0 0", fontSize: 14, color: "var(--subtle)" }}>
-            Already a customer?{" "}
-            <a href={site.dashboardUrl} style={{ color: "var(--ink)", fontWeight: 500, textDecoration: "underline", textUnderlineOffset: 3 }}>
-              Log in to your dashboard
-            </a>
-          </p>
-        </div>
-        <div className="wrap" style={{ position: "relative", maxWidth: 1200, marginTop: 64 }}>
-          <ProductDemo />
-        </div>
-      </section>
+      <Hero />
 
       <section aria-label="Platforms covered" style={{ borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", background: "var(--surface)", padding: "22px 0", overflow: "hidden" }}>
         <div className="wrap" style={{ display: "flex", alignItems: "center", gap: 28 }}>
