@@ -34,11 +34,14 @@ export const featureBands: { kicker: string; title: string; desc: string; mock: 
   { kicker: "Engage & scale", title: "Win customers at every location.", desc: "Reply to every review in your voice, manage hundreds of locations in bulk and report results in calls and visits.", mock: "reviews", feats: ["reviews", "multi-location", "reports"] },
 ];
 
-export type Plan = { name: string; for: string; monthly?: number; yearly?: number; popular?: boolean; cta: string; items: string[] };
+export type Plan = { name: string; for: string; price?: number; discount?: number; popular?: boolean; cta: string; items: string[] };
+
+// Final per-location monthly price after the plan's % discount, rounded to whole rupees.
+export const finalPrice = (p: Plan) => (p.price === undefined ? undefined : Math.round(p.price * (1 - (p.discount ?? 0) / 100)));
 
 export const plans: Plan[] = [
-  { name: "Starter", for: "For single-location businesses", monthly: 1499, yearly: 1249, cta: "Book a demo", items: ["Rank tracker: 10 keywords, 5×5 grid, weekly scans", "Business audit & profile score", "AI review replies (100 per month)", "Listings on Google, Bing and Apple Maps", "Basic profile protection alerts", "Monthly performance report"] },
-  { name: "Growth", for: "For growing brands and agencies", monthly: 2999, yearly: 2499, popular: true, cta: "Book a demo", items: ["Everything in Starter", "30 keywords, grids up to 9×9, daily scans", "Competitor tracker (5 per location)", "Full suspension risk & protection", "Unlimited AI replies + sentiment analysis", "20+ directory sync", "Bulk multi-location tools", "AI search visibility (25 prompts)"] },
+  { name: "Starter", for: "For single-location businesses", price: 1149, discount: 10, cta: "Book a demo", items: ["Rank tracker: 10 keywords, 5×5 grid, weekly scans", "Business audit & profile score", "AI review replies (100 per month)", "Listings on Google, Bing and Apple Maps", "Basic profile protection alerts", "Monthly performance report"] },
+  { name: "Growth", for: "For growing brands and agencies", price: 1699, discount: 10, popular: true, cta: "Book a demo", items: ["Everything in Starter", "30 keywords, grids up to 9×9, daily scans", "Competitor tracker (5 per location)", "Full suspension risk & protection", "Unlimited AI replies + sentiment analysis", "20+ directory sync", "Bulk multi-location tools", "AI search visibility (25 prompts)"] },
   { name: "Enterprise", for: "For 50+ locations", cta: "Talk to sales", items: ["Everything in Growth", "Custom keyword, grid and prompt limits", "Location groups and branch leaderboards", "Custom and scheduled reporting", "Dedicated success manager", "Guided onboarding for every location"] },
 ];
 

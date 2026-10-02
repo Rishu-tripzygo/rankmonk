@@ -3,7 +3,7 @@ import { featureHref, features } from "@/content/features";
 import { industries, industryHref, solutionHref, solutions } from "@/content/groups";
 import { legalDocs } from "@/content/legal";
 import { listPublished, type BlogPostSummary } from "@/lib/blog";
-import { homeFaqs, plans, platforms, pricingFaqs } from "@/content/site";
+import { finalPrice, homeFaqs, plans, platforms, pricingFaqs } from "@/content/site";
 
 export const revalidate = 3600;
 
@@ -34,8 +34,8 @@ function build(posts: BlogPostSummary[]): string {
     "",
     "## Pricing",
     ...plans.map((p) =>
-      p.monthly !== undefined
-        ? `- ${p.name} (${p.for.toLowerCase()}): ${inr(p.monthly)} per location per month billed monthly, or ${inr(p.yearly!)} billed yearly. Includes: ${p.items.join("; ")}.`
+      p.price !== undefined
+        ? `- ${p.name} (${p.for.toLowerCase()}): ${inr(finalPrice(p)!)} per location per month (${p.discount}% off ${inr(p.price)}). Includes: ${p.items.join("; ")}.`
         : `- ${p.name} (${p.for.toLowerCase()}): custom pricing. Includes: ${p.items.join("; ")}.`,
     ),
     `- Details and plan comparison: ${absoluteUrl("/pricing")}`,

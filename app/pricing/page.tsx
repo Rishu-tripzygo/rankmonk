@@ -3,15 +3,17 @@ import { FaqList } from "@/components/Faq";
 import { JsonLd } from "@/components/JsonLd";
 import { PricingPlans } from "@/components/PricingPlans";
 import { absoluteUrl, site } from "@/config/site";
-import { compareRows, plans, pricingFaqs } from "@/content/site";
+import { compareRows, finalPrice, plans, pricingFaqs } from "@/content/site";
 import { faqSchema, pageMetadata, webPageSchema } from "@/lib/seo";
 
 const title = "Pricing";
-const description = "Per-location pricing in rupees: Starter from ₹1,249 and Growth from ₹2,499 per location a month billed yearly, plus custom Enterprise plans. Excludes GST.";
+const inr = (v?: number) => `₹${v?.toLocaleString("en-IN")}`;
+const [starter, growth] = plans;
+const description = `Per-location pricing in rupees: Starter at ${inr(finalPrice(starter))} and Growth at ${inr(finalPrice(growth))} per location a month, plus custom Enterprise plans. Excludes GST.`;
 
 export const metadata = pageMetadata({ title, description, path: "/pricing", keywords: ["local SEO pricing", "Google Business Profile management pricing", "per location pricing", "INR"] });
 
-// Offers reflect the prices shown on the page (monthly billing, excl. GST).
+// Offers reflect the discounted prices shown on the page (excl. GST).
 const productSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
@@ -22,15 +24,15 @@ const productSchema = {
   description: site.description,
   publisher: { "@id": `${site.url}/#organization` },
   offers: plans
-    .filter((p) => p.monthly !== undefined)
+    .filter((p) => p.price !== undefined)
     .map((p) => ({
       "@type": "Offer",
       name: p.name,
       description: p.for,
       url: absoluteUrl("/pricing"),
       priceCurrency: "INR",
-      price: p.monthly,
-      priceSpecification: { "@type": "UnitPriceSpecification", price: p.monthly, priceCurrency: "INR", unitText: "per location per month", valueAddedTaxIncluded: false },
+      price: finalPrice(p),
+      priceSpecification: { "@type": "UnitPriceSpecification", price: finalPrice(p), priceCurrency: "INR", unitText: "per location per month", valueAddedTaxIncluded: false },
     })),
 };
 
